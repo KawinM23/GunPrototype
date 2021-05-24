@@ -5,10 +5,10 @@ public class Bullet : MonoBehaviour {
 
     public float bulletSpeed = 200f;
     public float bulletDamage = 10f;
-    public float lifeTime = 3f;
+    public float lifeTime = 5f;
 
     Vector3 dis;
-    
+
     public Rigidbody2D rb;
     GameObject player;
 
@@ -18,13 +18,13 @@ public class Bullet : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         rb.velocity = transform.right * bulletSpeed;
         Invoke("DestroyBullet", lifeTime);
-        Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(),player.transform.GetComponent<Collider2D>());
+        Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), player.transform.GetComponent<Collider2D>());
     }
 
     private void Update() {
-        if((transform.position - cm.transform.position).magnitude > dis.magnitude/2) {
-            Debug.Log((transform.position - cm.transform.position).magnitude);
-            Debug.Log(dis.magnitude);
+        if ((transform.position - cm.transform.position).magnitude > dis.magnitude / 2) {
+            //Debug.Log((transform.position - cm.transform.position).magnitude);
+            //Debug.Log(dis.magnitude);
             Destroy(gameObject);
         }
     }
