@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338eeb1661c050c44b71f17b77fa3226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 551649187103953120, guid: caaf2c5e39d8c784e950b2d559a22545,
+    type: 3}
 --- !u!212 &1618113323213931425
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 80064043}
   - component: {fileID: 80064047}
   - component: {fileID: 80064048}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1850,7 +1850,8 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 551649187103953120, guid: caaf2c5e39d8c784e950b2d559a22545,
+        type: 3}
     - target: {fileID: 1618113323213931427, guid: bd893303be5f09445be3499c0e94c94a,
         type: 3}
       propertyPath: m_Name

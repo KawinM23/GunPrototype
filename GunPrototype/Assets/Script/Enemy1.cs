@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy1 : MonoBehaviour {
-    int hp = 10;
+
     GameObject player;
-    float seeDis = 10;
+
+    int hp = 10;
+    float shootCooldown = 4;
+    float nextShootTime;
+
+    int seeDis = 10;
 
     public GameObject bulletPrefab;
-
 
     // Start is called before the first frame update
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
+        nextShootTime = Time.time + shootCooldown;
     }
 
     // Update is called once per frame
@@ -31,17 +36,26 @@ public class Enemy1 : MonoBehaviour {
     }
 
     public void CheckSeePlayer() {
-        Debug.Log(this.name + "shootplayer ");
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position, seeDis);
+        Debug.Log(this.name + " check");
+
+        Vector2 endPoint = (player.transform.position - transform.position).normalized * 1000;
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, endPoint, LayerMask.GetMask("Player"));
+        Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red);
+
         if (hit.collider != null) {
             if (hit.collider.gameObject.CompareTag("Player")) {
                 ShootPlayer();
             }
         }
-
     }
     public void ShootPlayer() {
-        GameObject bulletClone = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(Vector3.up));
+        Debug.Log(this.name + " shoot player.");
+        if (Time.time >= nextShootTime && bulletPrefab != null) {
+            Debug.Log("INST");
+            nextShootTime = Time.time + shootCooldown;
+            GameObject bulletClone = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(Vector3.up));
+            bulletClone.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * 20;
+        }
 
     }
 }
