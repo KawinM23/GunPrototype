@@ -17,7 +17,7 @@ public class ConeTrigger : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
-            enemy.GetComponent<Enemy1>().CheckSeePlayer();
+            //enemy.GetComponent<Enemy1>().CheckSeePlayer();
         }
     }
 
