@@ -36,21 +36,22 @@ public class Enemy : MonoBehaviour {
 
     public void CheckSeePlayer() {
 
-        Vector2 endPoint = (player.transform.position - transform.position).normalized * 10;
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, endPoint, 1 << LayerMask.NameToLayer("Ground"));
-        Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red);
+        Vector2 endPoint = transform.position + (player.transform.position - transform.position).normalized * 10;
+
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, endPoint);
+        Debug.DrawRay(transform.position, (player.transform.position - transform.position).normalized * 10, Color.red);
 
         if (hit.collider != null) {
-            Debug.Log(hit.collider);
             if (hit.collider.gameObject.CompareTag("Player")) {
+                Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.green);
                 ShootPlayer();
             }
         }
     }
     public void ShootPlayer() {
-        Debug.Log(this.name + " shoot player.");
         if (Time.time >= nextShootTime && bulletPrefab != null) {
-            Debug.Log("INST");
+
+            Debug.Log(this.name + " shoot player.");
             nextShootTime = Time.time + shootCooldown;
             GameObject bulletClone = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(Vector3.up));
             bulletClone.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * 20;

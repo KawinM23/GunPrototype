@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-    public Camera cm;
 
     public float bulletSpeed = 200f;
     public float bulletDamage = 10f;
@@ -13,7 +12,6 @@ public class Bullet : MonoBehaviour {
     GameObject player;
 
     private void Start() {
-        Cam();
 
         player = GameObject.FindGameObjectWithTag("Player");
         rb.velocity = transform.right * bulletSpeed;
@@ -22,11 +20,7 @@ public class Bullet : MonoBehaviour {
     }
 
     private void Update() {
-        if ((transform.position - cm.transform.position).magnitude > dis.magnitude / 2) {
-            //Debug.Log((transform.position - cm.transform.position).magnitude);
-            //Debug.Log(dis.magnitude);
-            Destroy(gameObject);
-        }
+
     }
 
     private void FixedUpdate() {
@@ -42,12 +36,6 @@ public class Bullet : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void Cam() {
-        cm = Camera.main;
-        float height = 2f * cm.orthographicSize;
-        float width = height * cm.aspect;
-        dis = new Vector3(width, height, 0);
-    }
 
 
 }
