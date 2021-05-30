@@ -9,13 +9,17 @@ public class PlayerMovement : MonoBehaviour {
     public float movementSpeed;
     private Rigidbody2D rb;
 
-    float jumpForce = 20f;
+    public float jumpForce = 10f;
+    public bool isJumping;
+    public byte jumpCount = 0;
+    private float jumpTimeCounter;
+    public float jumpTime;
     public Transform feet;
     public LayerMask groundLayers;
     int groundLayerMask ;
 
     [HideInInspector] public bool isFacingRight = true;
-    public byte jumping = 0;
+
 
     float mx;
 
@@ -34,10 +38,8 @@ public class PlayerMovement : MonoBehaviour {
             isFacingRight = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumping < 1) {
-            Jump();
-            Debug.Log(jumping);
-        }
+        Jump();
+
 
         if (Input.GetKeyDown(KeyCode.F)) {
             CM.GetComponent<CinemachineVirtualCamera>().m_Follow = GameObject.Find("Enemy1").transform;
@@ -53,14 +55,33 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Jump() {
-        jumping++;
-        Vector2 movement = new Vector2(rb.velocity.x, jumpForce);
-        rb.velocity = movement;
+
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1) {
+            jumpCount++;
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+        if (Input.GetKey(KeyCode.Space) && isJumping) {
+            if (jumpTimeCounter>=0) {
+                rb.velocity = new Vector2(rb.velocity.x, (float)(jumpForce * 0.9));
+                jumpTimeCounter -= Time.deltaTime;
+
+            } else {
+                isJumping = false;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space) && isJumping) {
+            isJumping = false;
+        }
+
     }
 
     public bool CheckGrounded() {
         if (feet.GetComponent<GroundCheck>().isGrounded) {
-            jumping = 0;
+            jumpCount = 0;
             return true;
         } else {
             return false;
@@ -78,7 +99,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void ResetJumping() {
-        jumping = 0;
+        jumpCount = 0;
     }
 
 

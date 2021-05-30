@@ -36,10 +36,10 @@ public class Enemy : MonoBehaviour {
 
     public void CheckSeePlayer() {
 
-        Vector2 endPoint = transform.position + (player.transform.position - transform.position).normalized * 10;
+        Vector2 endPoint = transform.position + (player.transform.position - transform.position).normalized * seeDis;
 
         RaycastHit2D hit = Physics2D.Linecast(transform.position, endPoint);
-        Debug.DrawRay(transform.position, (player.transform.position - transform.position).normalized * 10, Color.red);
+        Debug.DrawRay(transform.position, (player.transform.position - transform.position).normalized * seeDis, Color.red);
 
         if (hit.collider != null) {
             if (hit.collider.gameObject.CompareTag("Player")) {
