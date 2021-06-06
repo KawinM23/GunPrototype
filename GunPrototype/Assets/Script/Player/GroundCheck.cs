@@ -12,7 +12,6 @@ public class GroundCheck : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log(collision);
         isGrounded = collision != null && ((1 << collision.gameObject.layer & groundLayerMask) != 0);
         if (isGrounded) {
             transform.parent.gameObject.GetComponent<PlayerMovement>().ResetJumping();

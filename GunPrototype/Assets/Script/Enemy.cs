@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-    GameObject player;
+    private GameObject player;
+    public EnemyHealthbar enemyHealthbar;
 
-    int hp = 10;
+    protected int hp;
+    protected int maxHp = 50;
+    protected int[] shield;
+
     float shootCooldown = 4;
     float nextShootTime;
 
@@ -14,8 +18,11 @@ public class Enemy : MonoBehaviour {
     public GameObject bulletPrefab;
 
     // Start is called before the first frame update
-    void Start() {
+    protected void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
+
+        hp = maxHp;
+
         nextShootTime = Time.time + shootCooldown;
     }
 
@@ -32,6 +39,10 @@ public class Enemy : MonoBehaviour {
             if (hp > 0) { hp -= 3; }
             //Destroy(gameObject);
         }
+    }
+
+    public float HealthPercentage() {
+        return ((float)hp / (float)maxHp);
     }
 
     public void CheckSeePlayer() {
@@ -55,7 +66,7 @@ public class Enemy : MonoBehaviour {
             nextShootTime = Time.time + shootCooldown;
             GameObject bulletClone = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(Vector3.up));
             bulletClone.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * 20;
+            Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), bulletClone.transform.GetComponent<Collider2D>());
         }
-
     }
 }

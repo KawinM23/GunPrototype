@@ -4,5 +4,15 @@ using UnityEngine;
 
 public class Enemy1 : Enemy {
 
-    
+
+
+    private new void Start() {
+        base.Start();
+        maxHp = 100;
+        hp = maxHp;
+        shield = new int[25];
+    }
+
+
+
 }

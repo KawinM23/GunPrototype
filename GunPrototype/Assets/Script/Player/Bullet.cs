@@ -2,6 +2,8 @@
 
 public class Bullet : MonoBehaviour {
 
+    private GameObject player;
+
     public float bulletSpeed = 200f;
     public float bulletDamage = 10f;
     public float lifeTime = 5f;
@@ -9,11 +11,11 @@ public class Bullet : MonoBehaviour {
     Vector3 dis;
 
     public Rigidbody2D rb;
-    GameObject player;
+
 
     private void Start() {
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("Player");
         rb.velocity = transform.right * bulletSpeed;
         Invoke("DestroyBullet", lifeTime);
         Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), player.transform.GetComponent<Collider2D>());
@@ -33,7 +35,13 @@ public class Bullet : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        Destroy(gameObject);
+        if (collision != null) {
+            if (collision.gameObject.tag == "Bullet") {
+                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(),true);
+                return;
+            }
+            Destroy(gameObject);
+        }
     }
 
 
