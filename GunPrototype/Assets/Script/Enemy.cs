@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     private GameObject player;
-    public EnemyHealthbar enemyHealthbar;
+    [SerializeField] private EnemyHealthbar enemyHealthbar;
+    public GameObject bulletPrefab;
 
     protected int hp;
     protected int maxHp = 50;
     protected int[] shield;
+    protected int shieldPointer;
+
+    protected bool hackable;
 
     float shootCooldown = 4;
     float nextShootTime;
 
     int seeDis = 10;
 
-    public GameObject bulletPrefab;
+    public LayerMask groundLayer;
 
     // Start is called before the first frame update
     protected void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
 
         hp = maxHp;
-
+        hackable = false;
         nextShootTime = Time.time + shootCooldown;
     }
 
@@ -36,6 +40,7 @@ public class Enemy : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Bullet") {
+            Debug.Log("Hit");
             if (hp > 0) { hp -= 3; }
             //Destroy(gameObject);
         }
@@ -45,11 +50,23 @@ public class Enemy : MonoBehaviour {
         return ((float)hp / (float)maxHp);
     }
 
+    public void getHit(int damage) {
+        if (hp - damage < shield[shieldPointer]) {
+            hp = shield[shieldPointer];
+            hackable = true;
+        } else {
+            hp -= damage;
+        }
+        Debug.Log("HP " + hp);
+
+    }
+
     public void CheckSeePlayer() {
 
         Vector2 endPoint = transform.position + (player.transform.position - transform.position).normalized * seeDis;
 
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, endPoint);
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, endPoint, groundLayer);
+
         Debug.DrawRay(transform.position, (player.transform.position - transform.position).normalized * seeDis, Color.red);
 
         if (hit.collider != null) {

@@ -10,7 +10,8 @@ public class Enemy1 : Enemy {
         base.Start();
         maxHp = 100;
         hp = maxHp;
-        shield = new int[25];
+        shield = new int[1] { 25 };
+        shieldPointer = 0;
     }
 
 

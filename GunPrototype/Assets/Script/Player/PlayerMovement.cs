@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour {
     public void Start() {
         rb = GetComponent<Rigidbody2D>();
         hc = GetComponent<HackController>();
-        groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Enemy");
+        groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("Platform");
         
     }
 
@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour {
             Vector2 movement = new Vector2(mx * movementSpeed, rb.velocity.y);
             rb.velocity = movement;
         }
+        if (!isJumping) {
+            CheckGrounded();
+        }
     }
 
     void Jump() {
@@ -85,22 +88,22 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public bool CheckGrounded() {
-        if (feet.GetComponent<GroundCheck>().isGrounded) {
+        //if (feet.GetComponent<GroundCheck>().isGrounded) {
+        //    jumpCount = 0;
+        //    return true;
+        //} else {
+        //    return false;
+        //}
+        Collider2D groundCheck;
+        groundCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.05f), 0f, groundLayerMask);
+
+        if (groundCheck != null) {
+            Debug.Log("OnGround "+groundCheck);
             jumpCount = 0;
             return true;
         } else {
             return false;
         }
-        //Collider2D groundCheck;
-        //groundCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.05f), 0f, groundLayerMask);
-
-        //if (groundCheck != null) {
-        //    Debug.Log("OnGround "+groundCheck);
-        //    jumping = 0;
-        //    return true;
-        //} else {
-        //    return false;
-        //}
     }
 
     public void ResetJumping() {
