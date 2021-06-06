@@ -7,6 +7,7 @@ public class HackController : MonoBehaviour {
     public bool isHacking = false;
 
 
+    KeyCode[] randomList = new KeyCode[4] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
     KeyCode[] hackList;
     int hackPos;
 
@@ -21,14 +22,14 @@ public class HackController : MonoBehaviour {
     void Update() {
         if (isHacking) {
             if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {
-                Debug.Log("P "+hackList[hackPos]);
+                Debug.Log("P " + hackList[hackPos]);
                 hackPos++;
-                if(hackPos == hackList.Length) {
+                if (hackPos == hackList.Length) {
                     endHack();
                 } else {
                     Debug.Log(hackList[hackPos]);
                 }
-            } else if(hackPos < hackList.Length) {
+            } else if (hackPos < hackList.Length) {
 
             }
         }
@@ -36,11 +37,13 @@ public class HackController : MonoBehaviour {
     }
 
     public void StartHack(int size) {
-        hackList = new KeyCode[] { KeyCode.W, KeyCode.D, KeyCode.W, KeyCode.S };
-        
-        isHacking = true;
-        tm.DoSlowmotion();
-        Debug.Log(hackList[hackPos]);
+        if (!isHacking) {
+            hackList = new KeyCode[] { KeyCode.W, KeyCode.D, KeyCode.W, KeyCode.S };
+
+            isHacking = true;
+            tm.DoSlowmotion();
+            Debug.Log(hackList[hackPos]);
+        }
     }
 
     public void endHack() {
