@@ -10,24 +10,25 @@ public class HackController : MonoBehaviour {
     KeyCode[] randomList = new KeyCode[4] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
     KeyCode[] hackList;
     int hackPos;
+    int hackTime;
 
 
     // Start is called before the first frame update
     void Start() {
         isHacking = false;
         hackPos = 0;
+        hackTime = 0;
     }
 
     // Update is called once per frame
     void Update() {
         if (isHacking) {
+            Debug.Log("P" + hackTime + hackPos + " " + hackList[hackPos]);
             if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {
-                Debug.Log("P " + hackList[hackPos]);
+                
                 hackPos++;
                 if (hackPos == hackList.Length) {
                     endHack();
-                } else {
-                    Debug.Log(hackList[hackPos]);
                 }
             } else if (hackPos < hackList.Length) {
 
@@ -38,7 +39,11 @@ public class HackController : MonoBehaviour {
 
     public void StartHack(int size) {
         if (!isHacking) {
-            hackList = new KeyCode[] { KeyCode.W, KeyCode.D, KeyCode.W, KeyCode.S };
+            hackList = new KeyCode[size];
+            for(int i = 0; i < size; i++) {
+                hackList[i] = randomList[Random.Range(0, randomList.Length)];
+            }
+
 
             isHacking = true;
             tm.DoSlowmotion();
@@ -51,6 +56,7 @@ public class HackController : MonoBehaviour {
         tm.hacking = false;
         isHacking = false;
         hackPos = 0;
+        hackTime ++;
     }
 
     public bool PressOtherKeys(KeyCode kc) {

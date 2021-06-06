@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
     float shootCooldown = 4;
     float nextShootTime;
 
-    int seeDis = 10;
+    int seeDis = 20;
 
     public LayerMask groundLayer;
 

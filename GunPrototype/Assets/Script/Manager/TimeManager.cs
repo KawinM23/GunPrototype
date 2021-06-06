@@ -9,7 +9,7 @@ public class TimeManager : MonoBehaviour
     public float slowdownLength = 2f;
 
     public void Update() {
-        if (!hacking) {
+        if (!hacking && Time.timeScale != 1f) {
             if (Time.timeScale < 0.96f) {
                 Time.timeScale += (1f / slowdownFactor) * Time.unscaledDeltaTime;
                 Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
