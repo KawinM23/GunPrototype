@@ -44,6 +44,15 @@ public class Bullet : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision != null) {
+            if (collision.gameObject.tag == "Bullet") {
+                return;
+            }
+            Destroy(gameObject);
+        }
+    }
+
 
 
 }

@@ -37,5 +37,18 @@ public class EnemyBullet : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision != null) {
+            if (collision.gameObject.tag == "Bullet") {
+                return;
+            }
+            if (collision.gameObject.tag == "Player") {
+                PlayerController.getHit(20);
+            }
+            Destroy(gameObject);
+
+        }
+    }
+
 
 }
