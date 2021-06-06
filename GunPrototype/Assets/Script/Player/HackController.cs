@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HackController : MonoBehaviour {
+    [SerializeField] private TimeManager tm;
     public bool isHacking = false;
+
 
     KeyCode[] hackList;
     int hackPos;
@@ -34,15 +36,18 @@ public class HackController : MonoBehaviour {
     }
 
     public void StartHack(int size) {
-        hackList = new KeyCode[] { KeyCode.W, KeyCode.W, KeyCode.W, KeyCode.W };
-
+        hackList = new KeyCode[] { KeyCode.W, KeyCode.D, KeyCode.W, KeyCode.S };
+        
         isHacking = true;
+        tm.DoSlowmotion();
         Debug.Log(hackList[hackPos]);
     }
 
     public void endHack() {
         Debug.Log("End");
+        tm.hacking = false;
         isHacking = false;
+        hackPos = 0;
     }
 
     public bool PressOtherKeys(KeyCode kc) {

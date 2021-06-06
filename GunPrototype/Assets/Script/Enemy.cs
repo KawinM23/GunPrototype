@@ -32,8 +32,9 @@ public class Enemy : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (hp <= 0) {
-            Destroy(gameObject);
+
+        if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
+            player.GetComponent<HackController>().StartHack(4);
         }
         CheckSeePlayer();
     }
@@ -42,7 +43,9 @@ public class Enemy : MonoBehaviour {
         if (collision.gameObject.tag == "Bullet") {
             Debug.Log("Hit");
             if (hp > 0) { hp -= 3; }
-            //Destroy(gameObject);
+            if (hp <= 0) {
+                Destroy(gameObject);
+            }
         }
     }
 

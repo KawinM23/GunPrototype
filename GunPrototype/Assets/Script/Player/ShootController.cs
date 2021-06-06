@@ -30,7 +30,7 @@ public class ShootController : MonoBehaviour
                 timeUntilFire = Time.time + fireRate;
             }
             if (Input.GetMouseButtonDown(1)) {
-                ShootGun();
+                //ShootGun();
                 timeUntilFire = Time.time + fireRate;
             }
         } else {
