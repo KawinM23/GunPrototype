@@ -5,6 +5,7 @@ using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour {
     public GameObject CM;
+    public HackController hc;
 
     public float movementSpeed;
     private Rigidbody2D rb;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Start() {
         rb = GetComponent<Rigidbody2D>();
+        hc = GetComponent<HackController>();
         groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Enemy");
         
     }
@@ -42,7 +44,8 @@ public class PlayerMovement : MonoBehaviour {
 
 
         if (Input.GetKeyDown(KeyCode.F)) {
-            CM.GetComponent<CinemachineVirtualCamera>().m_Follow = GameObject.Find("Enemy1").transform;
+            //CM.GetComponent<CinemachineVirtualCamera>().m_Follow = GameObject.Find("Enemy1").transform;
+            hc.StartHack(4);
         }
 
 
@@ -50,8 +53,10 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void FixedUpdate() {
-        Vector2 movement = new Vector2(mx * movementSpeed, rb.velocity.y);
-        rb.velocity = movement;
+        if (!hc.isHacking) {
+            Vector2 movement = new Vector2(mx * movementSpeed, rb.velocity.y);
+            rb.velocity = movement;
+        }
     }
 
     void Jump() {
@@ -65,7 +70,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.Space) && isJumping) {
             if (jumpTimeCounter>=0) {
-                rb.velocity = new Vector2(rb.velocity.x, (float)(jumpForce * 0.9));
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce * 0.9f);
                 jumpTimeCounter -= Time.deltaTime;
 
             } else {
