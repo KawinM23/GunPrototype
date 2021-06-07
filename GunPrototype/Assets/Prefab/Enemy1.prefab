@@ -366,8 +366,8 @@ MonoBehaviour:
   - {fileID: 7513309959654344344}
   - {fileID: 952397820184360133}
   - {fileID: 5073660437775157414}
-  healthColor: {r: 0.8862746, g: 0.3137255, b: 0.23137257, a: 0}
-  shieldColor: {r: 0.31764707, g: 0.76470596, b: 0.8117648, a: 0}
+  healthColor: {r: 0.8862746, g: 0.3137255, b: 0.23137257, a: 1}
+  shieldColor: {r: 0.31764707, g: 0.76470596, b: 0.8117648, a: 1}
 --- !u!1 &7513309959654344344
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 115705851029001667}
   - component: {fileID: 4478286461134482300}
   m_Layer: 2
-  m_Name: Shield
+  m_Name: Shield1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -31,7 +31,6 @@ public class EnemyHealthbar : MonoBehaviour
             } else {
                 healthGroups[(int)i].SetActive(false);
             }
-            Debug.Log("Shield " + i + enemy.isShield(i));
             if (enemy.isShield(i) && (enemy.shieldPointer == -1 || enemy.shieldPointer<i)) {
                 Debug.Log("Shield "+ i+ enemy.shieldPointer + "Chnage Color");
                 healthGroups[(int)i].GetComponent<SpriteRenderer>().color = healthColor;
