@@ -128,9 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338eeb1661c050c44b71f17b77fa3226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealthbar: {fileID: 0}
+  enemyHealthbar: {fileID: 7024588987543062295}
   bulletPrefab: {fileID: 551649187103953120, guid: caaf2c5e39d8c784e950b2d559a22545,
     type: 3}
+  shieldPointer: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -365,6 +366,8 @@ MonoBehaviour:
   - {fileID: 7513309959654344344}
   - {fileID: 952397820184360133}
   - {fileID: 5073660437775157414}
+  healthColor: {r: 0.8862746, g: 0.3137255, b: 0.23137257, a: 0}
+  shieldColor: {r: 0.31764707, g: 0.76470596, b: 0.8117648, a: 0}
 --- !u!1 &7513309959654344344
 GameObject:
   m_ObjectHideFlags: 0

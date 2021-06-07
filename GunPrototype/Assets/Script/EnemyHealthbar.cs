@@ -8,6 +8,8 @@ public class EnemyHealthbar : MonoBehaviour
     [SerializeField] Enemy enemy;
     [SerializeField] GameObject[] healthGroups;
 
+    public Color healthColor;
+    public Color shieldColor;
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +19,22 @@ public class EnemyHealthbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    public void OnGetHit() {
         float healthNumber = enemy.HealthPercentage() * healthGroups.Length;
-        for (float i =0; i< healthGroups.Length; i++) {
+        Debug.Log(healthNumber);
+        for (float i = 0; i < healthGroups.Length; i++) {
             if (healthNumber > i) {
                 healthGroups[(int)i].SetActive(true);
             } else {
                 healthGroups[(int)i].SetActive(false);
+            }
+            Debug.Log("Shield " + i + enemy.isShield(i));
+            if (enemy.isShield(i) && (enemy.shieldPointer == -1 || enemy.shieldPointer<i)) {
+                Debug.Log("Shield "+ i+ enemy.shieldPointer + "Chnage Color");
+                healthGroups[(int)i].GetComponent<SpriteRenderer>().color = healthColor;
             }
         }
     }

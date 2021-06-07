@@ -17,7 +17,7 @@ public class TimeManager : MonoBehaviour
                 Time.timeScale = 1f;
             }
             
-            Debug.Log(Time.timeScale);
+            
         }
     }
 

@@ -7,10 +7,13 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private EnemyHealthbar enemyHealthbar;
     public GameObject bulletPrefab;
 
+
+
     protected int hp;
     protected int maxHp = 50;
     protected int[] shield;
-    protected int shieldPointer;
+    protected bool[] shieldPosition;
+    public int shieldPointer;
 
     protected bool hackable;
 
@@ -34,19 +37,9 @@ public class Enemy : MonoBehaviour {
     void Update() {
 
         if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
-            player.GetComponent<HackController>().StartHack(4);
+            player.GetComponent<HackController>().StartHack(this, 4, 5f);
         }
         CheckSeePlayer();
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Bullet") {
-            Debug.Log("Hit");
-            if (hp > 0) { hp -= 3; }
-            if (hp <= 0) {
-                Destroy(gameObject);
-            }
-        }
     }
 
     public float HealthPercentage() {
@@ -54,14 +47,43 @@ public class Enemy : MonoBehaviour {
     }
 
     public void getHit(int damage) {
-        if (hp - damage < shield[shieldPointer]) {
+        if (shieldPointer != -1 && hp - damage < shield[shieldPointer]) {
+
             hp = shield[shieldPointer];
             hackable = true;
         } else {
             hp -= damage;
         }
+
+        if (hp < 0) {
+            Destroy(gameObject);
+        }
+        enemyHealthbar.OnGetHit();
         Debug.Log("HP " + hp);
 
+    }
+
+    public bool isShield(float f) {
+        if (shieldPointer <shieldPosition.Length) {
+            return shieldPosition[(int)f];
+        } else {
+            return false;
+        }
+        
+    }
+
+    public void breakShield() {
+        shieldPointer--;
+        if (shieldPointer > 0) {
+            while (!shieldPosition[shieldPointer]) {
+                shieldPointer++;
+            }
+            hackable = false;
+            Debug.Log(shieldPointer);
+        } else {
+            shieldPointer = -1;
+        }
+        enemyHealthbar.OnGetHit();
     }
 
     public void CheckSeePlayer() {
