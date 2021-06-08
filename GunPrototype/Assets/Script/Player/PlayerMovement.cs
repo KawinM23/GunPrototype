@@ -4,11 +4,12 @@ using UnityEngine;
 using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour {
-    public GameObject CM;
-    public HackController hc;
+    private Rigidbody2D rb;
+    private HackController hc;
+    private BoxCollider2D bc;
 
     public float movementSpeed;
-    private Rigidbody2D rb;
+    
 
     public float jumpForce = 10f;
     public bool isJumping;
@@ -27,7 +28,8 @@ public class PlayerMovement : MonoBehaviour {
     public void Start() {
         rb = GetComponent<Rigidbody2D>();
         hc = GetComponent<HackController>();
-        groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("Platform");
+        bc = GetComponent<BoxCollider2D>();
+        groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Enemy");
         
     }
 
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         Jump();
+        JumpDown();
 
 
         if (Input.GetKeyDown(KeyCode.F)) {
@@ -86,6 +89,16 @@ public class PlayerMovement : MonoBehaviour {
         }
 
     }
+    void JumpDown() {
+
+        Collider2D platformCheck;
+        platformCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Platform"));
+
+        if (Input.GetKey(KeyCode.S) && platformCheck != null && !bc.isTrigger) {
+            bc.isTrigger = true;
+        }
+
+    }
 
     public bool CheckGrounded() {
         //if (feet.GetComponent<GroundCheck>().isGrounded) {
@@ -95,7 +108,7 @@ public class PlayerMovement : MonoBehaviour {
         //    return false;
         //}
         Collider2D groundCheck;
-        groundCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.05f), 0f, groundLayerMask);
+        groundCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, groundLayerMask);
 
         if (groundCheck != null) {
             Debug.Log("OnGround "+groundCheck);
@@ -119,6 +132,14 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 temp = transform.position;
         transform.position = Target.transform.position;
         Target.transform.position = temp;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        Debug.Log("Exit");
+        if (collision != null && collision.gameObject.CompareTag("Platform")) {
+            Debug.Log("Exit2");
+            bc.isTrigger = false;
+        }
     }
 
 }

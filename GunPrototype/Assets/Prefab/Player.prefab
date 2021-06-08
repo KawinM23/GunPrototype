@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82516c70cde5f74f997d291ed3f5536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tm: {fileID: 0}
   isHacking: 0
 --- !u!114 &3612458128224012353
 MonoBehaviour:
@@ -262,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 7032924514066283111}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.01, z: 1}
   m_Children: []
   m_Father: {fileID: 7032924513037284798}
   m_RootOrder: 0
@@ -279,7 +280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9cd2fec76602f941ac00d25a670497c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
 --- !u!212 &7032924514066283112
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -72,18 +72,22 @@ public class Enemy : MonoBehaviour {
         
     }
 
-    public void breakShield() {
+    public void BreakShield() {
         shieldPointer--;
         if (shieldPointer > 0) {
             while (!shieldPosition[shieldPointer]) {
                 shieldPointer++;
             }
-            hackable = false;
+            EndHack();
             Debug.Log(shieldPointer);
         } else {
             shieldPointer = -1;
         }
         enemyHealthbar.OnGetHit();
+    }
+
+    public void EndHack() {
+        hackable = false;
     }
 
     public void CheckSeePlayer() {

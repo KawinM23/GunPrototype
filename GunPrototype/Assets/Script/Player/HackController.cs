@@ -69,7 +69,8 @@ public class HackController : MonoBehaviour {
             isHacking = false;
             hackPos = 0;
             hackTime++;
-            targetEnemy.breakShield();
+            targetEnemy.BreakShield();
+            targetEnemy.EndHack();
         }
     }
 
@@ -80,6 +81,7 @@ public class HackController : MonoBehaviour {
             isHacking = false;
             hackPos = 0;
             hackTime++;
+            targetEnemy.EndHack();
         }
     }
 
