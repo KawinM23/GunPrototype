@@ -26,9 +26,7 @@ public class EnemyHealthbar : MonoBehaviour
         float healthNumber = enemy.HealthPercentage() * healthGroups.Length;
         Debug.Log(healthNumber);
         for (float i = 0; i < healthGroups.Length; i++) {
-            if (healthNumber > i) {
-                healthGroups[(int)i].SetActive(true);
-            } else {
+            if (healthNumber <= i && healthGroups[(int)i].activeSelf) {
                 healthGroups[(int)i].SetActive(false);
             }
             if (enemy.isShield(i) && (enemy.shieldPointer == -1 || enemy.shieldPointer<i)) {

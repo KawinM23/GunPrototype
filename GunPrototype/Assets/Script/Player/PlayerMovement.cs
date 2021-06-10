@@ -111,7 +111,6 @@ public class PlayerMovement : MonoBehaviour {
         groundCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, groundLayerMask);
 
         if (groundCheck != null) {
-            Debug.Log("OnGround "+groundCheck);
             jumpCount = 0;
             return true;
         } else {
@@ -135,9 +134,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        Debug.Log("Exit");
         if (collision != null && collision.gameObject.CompareTag("Platform")) {
-            Debug.Log("Exit2");
             bc.isTrigger = false;
         }
     }

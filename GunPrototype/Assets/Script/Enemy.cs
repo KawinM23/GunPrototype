@@ -35,11 +35,12 @@ public class Enemy : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
-        if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
-            player.GetComponent<HackController>().StartHack(this, 4, 5f);
+        if (player != null) {
+            if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
+                player.GetComponent<HackController>().StartHack(this, 4, 5f);
+            }
+            CheckSeePlayer();
         }
-        CheckSeePlayer();
     }
 
     public float HealthPercentage() {
