@@ -92,9 +92,11 @@ public class PlayerMovement : MonoBehaviour {
     void JumpDown() {
 
         Collider2D platformCheck;
+        Collider2D otherCheck;
         platformCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Platform"));
+        otherCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Enemy"));
 
-        if (Input.GetKey(KeyCode.S) && platformCheck != null && !bc.isTrigger) {
+        if (Input.GetKey(KeyCode.S) && platformCheck != null && otherCheck == null && !bc.isTrigger) {
             bc.isTrigger = true;
         }
 

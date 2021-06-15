@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
 
     static int hp;
-    static int maxHp=100;
+    static int maxHp = 100;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (hp <= 0) {
-            SceneManager.LoadScene("TestScene");
+            LevelManager.LoadScene(1);
         }
     }
 
