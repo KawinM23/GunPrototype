@@ -17,8 +17,8 @@ public class Enemy : MonoBehaviour {
 
     protected bool hackable;
 
-    float shootCooldown = 4;
-    float nextShootTime;
+    protected float shootCooldown;
+    protected float nextShootTime;
 
     int seeDis = 20;
 
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour {
 
         hp = maxHp;
         hackable = false;
-        nextShootTime = Time.time + shootCooldown;
+        nextShootTime = Time.time + 2;
     }
 
     // Update is called once per frame
@@ -48,12 +48,13 @@ public class Enemy : MonoBehaviour {
     }
 
     public void getHit(int damage) {
-        if (shieldPointer != -1 && hp - damage < shield[shieldPointer]) {
+        if (shieldPointer != -1 && hp - damage <= shield[shieldPointer]) {
 
             hp = shield[shieldPointer];
             hackable = true;
         } else {
             hp -= damage;
+            hackable = false;
         }
 
         if (hp < 0) {
@@ -89,6 +90,7 @@ public class Enemy : MonoBehaviour {
 
     public void EndHack() {
         hackable = false;
+        getHit(0);
     }
 
     public void CheckSeePlayer() {

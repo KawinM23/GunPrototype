@@ -6,7 +6,7 @@ public class EnemyBullet : MonoBehaviour {
 
     [SerializeField] private Rigidbody2D rb;
 
-
+    public int bulletDamage;
 
     // Start is called before the first frame update
     void Start() {
@@ -30,7 +30,7 @@ public class EnemyBullet : MonoBehaviour {
                 return;
             }
             if (collision.gameObject.tag == "Player") {
-                PlayerController.getHit(20);
+                PlayerController.getHit(bulletDamage);
             }
             Destroy(gameObject);
 
@@ -43,7 +43,7 @@ public class EnemyBullet : MonoBehaviour {
                 return;
             }
             if (collision.gameObject.tag == "Player") {
-                PlayerController.getHit(20);
+                PlayerController.getHit(bulletDamage);
             }
             Destroy(gameObject);
 

@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (hp <= 0) {
-            LevelManager.LoadScene(1);
+            LevelManager.LoadTestScene();
         }
     }
 
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     public static void getHit(int damage) {
         hp -= damage;
+        Debug.Log(hp);
     }
 
     public float healthPercentage() {
