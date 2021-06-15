@@ -22,6 +22,6 @@ public class TimeManager : MonoBehaviour
     public void DoSlowmotion() {
         hacking = true;
         Time.timeScale = slowdownFactor;
-        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        //Time.fixedDeltaTime = Time.timeScale * 0.02f;
     }
 }

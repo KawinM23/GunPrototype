@@ -5,13 +5,14 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour {
 
     [SerializeField] private Rigidbody2D rb;
+    private HackController hc;
 
     public int bulletDamage;
 
     // Start is called before the first frame update
     void Start() {
         Invoke("TimeOut", 5);
-
+        hc = GameObject.Find("Player").GetComponent<HackController>();
     }
 
     // Update is called once per frame
@@ -43,7 +44,14 @@ public class EnemyBullet : MonoBehaviour {
                 return;
             }
             if (collision.gameObject.tag == "Player") {
-                PlayerController.getHit(bulletDamage);
+                if (!hc.isHacking) {
+                    PlayerController.getHit(bulletDamage);
+                    Destroy(gameObject);
+                    return;
+                } else {
+                    Debug.Log("Ah");
+                    return;
+                }
             }
             Destroy(gameObject);
 

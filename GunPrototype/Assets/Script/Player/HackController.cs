@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HackController : MonoBehaviour {
-    [SerializeField] private TimeManager tm;
+    private TimeManager tm;
 
     public bool isHacking = false;
 
@@ -20,6 +20,8 @@ public class HackController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        tm = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+
         isHacking = false;
         hackPos = 0;
         hackTime = 0;
