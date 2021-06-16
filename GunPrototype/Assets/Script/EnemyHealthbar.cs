@@ -7,6 +7,7 @@ public class EnemyHealthbar : MonoBehaviour
 {
     [SerializeField] Enemy enemy;
     [SerializeField] GameObject[] healthGroups;
+    [SerializeField] ParticleSystem ps;
 
     public Color healthColor;
     public Color shieldColor;
