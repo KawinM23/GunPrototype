@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerHealthbar : MonoBehaviour
 {
-    [SerializeField] private PlayerController pc;
+    private PlayerController pc;
     private Image Healthbar;
 
     // Start is called before the first frame update
     void Start()
     {
+        pc = GameObject.Find("Player").GetComponent<PlayerController>();
         Healthbar = GetComponent<Image>();
     }
 

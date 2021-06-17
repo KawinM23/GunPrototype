@@ -25,13 +25,12 @@ public class EnemyHealthbar : MonoBehaviour
 
     public void OnGetHit() {
         float healthNumber = enemy.HealthPercentage() * healthGroups.Length;
-        Debug.Log(healthNumber);
         for (float i = 0; i < healthGroups.Length; i++) {
             if (healthNumber <= i && healthGroups[(int)i].activeSelf) {
                 healthGroups[(int)i].SetActive(false);
             }
             if (enemy.isShield(i) && (enemy.shieldPointer == -1 || enemy.shieldPointer<i)) {
-                Debug.Log("Shield "+ i+ enemy.shieldPointer + "Chnage Color");
+                Debug.Log("Shield "+ i+ enemy.shieldPointer + "Change Color");
                 healthGroups[(int)i].GetComponent<SpriteRenderer>().color = healthColor;
             }
         }

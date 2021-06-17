@@ -20,7 +20,7 @@ public class HackController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        tm = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+        tm = GameObject.Find("Manager").GetComponent<TimeManager>();
 
         isHacking = false;
         hackPos = 0;

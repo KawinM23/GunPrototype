@@ -61,7 +61,6 @@ public class Enemy : MonoBehaviour {
             Destroy(gameObject);
         }
         enemyHealthbar.OnGetHit();
-        Debug.Log("HP " + hp);
 
     }
 
