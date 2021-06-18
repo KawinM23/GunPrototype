@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour {
     protected float shootCooldown;
     protected float nextShootTime;
 
-    int seeDis = 20;
+    protected int seeDis = 20;
 
     public LayerMask groundLayer;
 

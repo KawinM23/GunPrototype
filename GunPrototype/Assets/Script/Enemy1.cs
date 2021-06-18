@@ -16,6 +16,7 @@ public class Enemy1 : Enemy {
         shieldPosition = new bool[4] { true,false,false,false};
         shieldPointer = 0;
 
+        seeDis = 25;
         shootCooldown = 1.5f;
     }
 

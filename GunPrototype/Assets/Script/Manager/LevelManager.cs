@@ -14,6 +14,9 @@ public class LevelManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             LoadLevel(1);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            LoadLevel(1);
+        }
     }
 
     public static void LoadTestScene() {
@@ -27,5 +30,15 @@ public class LevelManager : MonoBehaviour {
 
     public static void Retry() {
         SceneManager.LoadScene("Level" + playingLevel);
+    }
+
+    public static void FinishLevel() {
+        //TODO
+        SceneManager.LoadScene("Menu");
+    }
+
+    public static void BackToMenu() {
+        SceneManager.LoadScene("Menu");
+        playingLevel = 0;
     }
 }
