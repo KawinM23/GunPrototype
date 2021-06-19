@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     public static void getHit(int damage) {
         hp -= damage;
-        Debug.Log(hp);
     }
 
     public float healthPercentage() {

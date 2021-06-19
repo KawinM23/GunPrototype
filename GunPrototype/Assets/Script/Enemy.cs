@@ -78,10 +78,9 @@ public class Enemy : MonoBehaviour {
         shieldPointer--;
         if (shieldPointer > 0) {
             while (!shieldPosition[shieldPointer]) {
-                shieldPointer++;
+                shieldPointer--;
             }
             EndHack();
-            Debug.Log(shieldPointer);
         } else {
             shieldPointer = -1;
         }
@@ -110,8 +109,6 @@ public class Enemy : MonoBehaviour {
     }
     public void ShootPlayer() {
         if (Time.time >= nextShootTime && bulletPrefab != null) {
-
-            Debug.Log(this.name + " shoot player.");
             nextShootTime = Time.time + shootCooldown;
             GameObject bulletClone = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(Vector3.up));
             bulletClone.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * 20;

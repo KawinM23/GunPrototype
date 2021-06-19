@@ -40,10 +40,10 @@ public class EnemyBullet : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision != null) {
-            if (collision.gameObject.tag == "Bullet") {
+            if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy")) {
                 return;
             }
-            if (collision.gameObject.tag == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 if (!hc.isHacking) {
                     PlayerController.getHit(bulletDamage);
                     Destroy(gameObject);
