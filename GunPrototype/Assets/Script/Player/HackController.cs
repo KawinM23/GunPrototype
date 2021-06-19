@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HackController : MonoBehaviour {
     private TimeManager tm;
+    private HackInterface hi;
 
     public bool isHacking = false;
 
@@ -21,6 +22,7 @@ public class HackController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         tm = GameObject.Find("Manager").GetComponent<TimeManager>();
+        hi = GameObject.Find("Manager").GetComponent<HackInterface>();
 
         isHacking = false;
         hackPos = 0;
@@ -34,7 +36,6 @@ public class HackController : MonoBehaviour {
             hackTimePass += Time.deltaTime;
             Debug.Log("P" + hackTime + hackPos + " " + hackList[hackPos]);
             if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {
-                
                 hackPos++;
                 if (hackPos == hackList.Length) {
                     HackSuccess();
@@ -42,7 +43,7 @@ public class HackController : MonoBehaviour {
             }
             if (hackTimePass > hackDuration) {
                 Debug.Log("EndTime");
-                EndHack();
+                HackFailed();
             }
         }
 
@@ -54,6 +55,7 @@ public class HackController : MonoBehaviour {
             targetEnemy = enemy;
 
             hackList = RandomList(size);
+            hi.ShowHackList(hackList);
             tm.DoSlowmotion();
             Debug.Log(hackList[hackPos]);
 
@@ -67,23 +69,26 @@ public class HackController : MonoBehaviour {
     public void HackSuccess() {
         if (isHacking) {
             Debug.Log("Success");
-            tm.hacking = false;
-            isHacking = false;
-            hackPos = 0;
-            hackTime++;
+            EndHack();
             targetEnemy.BreakShield();
-            targetEnemy.EndHack();
+        }
+    }
+
+    public void HackFailed() {
+        if (isHacking) {
+            Debug.Log("Fail");
+            EndHack();
         }
     }
 
     public void EndHack() {
         if (isHacking) {
-            Debug.Log("End");
             tm.hacking = false;
             isHacking = false;
             hackPos = 0;
             hackTime++;
             targetEnemy.EndHack();
+            hi.HideInterface();
         }
     }
 

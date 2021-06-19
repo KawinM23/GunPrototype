@@ -49,7 +49,6 @@ public class EnemyBullet : MonoBehaviour {
                     Destroy(gameObject);
                     return;
                 } else {
-                    Debug.Log("Ah");
                     return;
                 }
             }
