@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
+    private GameObject player;
+
     private static int playingLevel = 0;
 
+    private void Start() {
+        player = GameObject.Find("Player");
+    }
 
     private void Update(){
         if (Input.GetKeyDown(KeyCode.Tab)) {
@@ -25,7 +30,7 @@ public class LevelManager : MonoBehaviour {
         playingLevel = level;
     }
 
-    public static void Retry() {
+    public void Retry() {
         SceneManager.LoadScene("Level" + playingLevel);
     }
 
@@ -34,7 +39,7 @@ public class LevelManager : MonoBehaviour {
         SceneManager.LoadScene("Menu");
     }
 
-    public static void BackToMenu() {
+    public void BackToMenu() {
         SceneManager.LoadScene("Menu");
         playingLevel = 0;
     }

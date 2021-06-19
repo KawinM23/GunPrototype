@@ -6,12 +6,15 @@ public class TimeManager : MonoBehaviour
 {
     public static bool isPause;
     private float tempTimeScale;
+    private GameObject PauseMenu;
 
     public bool hacking;
     public float slowdownFactor;
     public float slowdownLength;
 
     private void Start() {
+        PauseMenu = GameObject.Find("PauseMenu");
+        PauseMenu.SetActive(false);
         isPause = false;
     }
 
@@ -41,11 +44,13 @@ public class TimeManager : MonoBehaviour
         isPause = true;
         tempTimeScale = Time.timeScale;
         Time.timeScale = 0;
+        PauseMenu.SetActive(true);
     }
 
     public void Resume() {
         isPause = false;
         Time.timeScale = tempTimeScale;
+        PauseMenu.SetActive(false);
     }
 
     public void TogglePause() {

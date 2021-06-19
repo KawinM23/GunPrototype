@@ -30,7 +30,7 @@ public class HackController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (isHacking) {
+        if (!TimeManager.isPause && isHacking) {
             hackTimePass += Time.deltaTime;
             Debug.Log("P" + hackTime + hackPos + " " + hackList[hackPos]);
             if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {

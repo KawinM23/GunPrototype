@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShootController : MonoBehaviour
 {
     PlayerMovement pm;
     HackController hc;
+
+    public bool shootable;
 
     public float fireRate = 0.2f;
     public Transform firingPoint;
@@ -20,11 +23,17 @@ public class ShootController : MonoBehaviour
     private void Start() {
         pm = gameObject.GetComponent<PlayerMovement>();
         hc = GetComponent<HackController>();
+        if (!SceneManager.GetActiveScene().name.Equals("Menu")) {
+            shootable = true;
+        } else {
+            shootable = false;
+        }
+        
     }
 
     private void Update() {
-        if (TimeManager.isPause) {
-            if (!hc.isHacking) {
+        if (!TimeManager.isPause) {
+            if (shootable && !hc.isHacking) {
                 if (Input.GetMouseButton(0) && timeUntilFire < Time.time) {
                     Shoot();
                     timeUntilFire = Time.time + fireRate;
@@ -33,8 +42,6 @@ public class ShootController : MonoBehaviour
                     //ShootGun();
                     timeUntilFire = Time.time + fireRate;
                 }
-            } else {
-
             }
         }
     }
@@ -62,4 +69,6 @@ public class ShootController : MonoBehaviour
         GunClone.transform.position = firingPoint.position;
         GunClone.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
     }
+
+
 }
