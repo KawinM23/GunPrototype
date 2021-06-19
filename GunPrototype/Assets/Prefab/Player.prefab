@@ -73,12 +73,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e4995fde2f1d7479616327744e166e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0.2
-  firingPoint: {fileID: 7032924514007548545}
   bulletPrefab: {fileID: 9082319645256294571, guid: 1cfec938d280e8344a1a6070837d4296,
+    type: 3}
+  smgBulletPrefab: {fileID: 2623309499646584323, guid: 1f845079f417e81409188c28227ca1e2,
+    type: 3}
+  sniperBulletPrefab: {fileID: 8028734761405936792, guid: e2d52cdf28178db4383220bb16dd3a4a,
     type: 3}
   gunPrefab: {fileID: 8296535279564188297, guid: aea217ade60bd70418b101d76746b78e,
     type: 3}
+  shootable: 0
+  fireRate: 0.2
+  firingPoint: {fileID: 7032924514007548545}
   offset: 0
 --- !u!114 &1128196404006224982
 MonoBehaviour:
@@ -92,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82516c70cde5f74f997d291ed3f5536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tm: {fileID: 0}
   isHacking: 0
 --- !u!114 &3612458128224012353
 MonoBehaviour:

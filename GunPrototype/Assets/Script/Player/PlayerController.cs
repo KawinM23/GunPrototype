@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (hp <= 0) {
-            LevelManager.LoadTestScene();
+            LevelManager.Retry();
         }
     }
 

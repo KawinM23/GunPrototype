@@ -10,6 +10,14 @@ public class LevelManager : MonoBehaviour {
 
     private void Start() {
         player = GameObject.Find("Player");
+        string level = SceneManager.GetActiveScene().name;
+        if (level.Equals("Menu")) {
+            playingLevel = 0;
+        } else if (level.Contains("Level")) {
+            int levelNumber;
+            levelNumber =  int.Parse(level.Substring(5));
+            playingLevel = levelNumber;
+        }
     }
 
     private void Update(){
@@ -30,7 +38,7 @@ public class LevelManager : MonoBehaviour {
         playingLevel = level;
     }
 
-    public void Retry() {
+    public static void Retry() {
         SceneManager.LoadScene("Level" + playingLevel);
     }
 

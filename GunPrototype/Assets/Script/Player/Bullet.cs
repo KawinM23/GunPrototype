@@ -3,14 +3,13 @@
 public class Bullet : MonoBehaviour {
 
     private GameObject player;
+    [SerializeField] private Rigidbody2D rb;
 
-    public float bulletSpeed = 200f;
-    public float bulletDamage = 10f;
-    public float lifeTime = 5f;
+    public int bulletSpeed;
+    public int bulletDamage;
+    private float lifeTime = 6f;
 
-    Vector3 dis;
-
-    public Rigidbody2D rb;
+    
 
 
     private void Start() {
@@ -50,7 +49,7 @@ public class Bullet : MonoBehaviour {
                 return;
             }
             if(collision.gameObject.CompareTag("Enemy")) {
-                collision.gameObject.GetComponent<Enemy>().getHit(10);
+                collision.gameObject.GetComponent<Enemy>().getHit(bulletDamage);
             }
             Destroy(gameObject);
         }

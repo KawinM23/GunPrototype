@@ -56,8 +56,9 @@ public class Enemy : MonoBehaviour {
             hp -= damage;
             hackable = false;
         }
+        Debug.Log(hp);
 
-        if (hp < 0) {
+        if (hp <= 0) {
             Destroy(gameObject);
         }
         enemyHealthbar.OnGetHit();

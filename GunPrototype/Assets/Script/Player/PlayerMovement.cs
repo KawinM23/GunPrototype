@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Jump() {
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1) {
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2) {
             jumpCount++;
             isJumping = true;
             jumpTimeCounter = jumpTime;
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
 
     }
     void JumpDown() {
-        if (Input.GetKey(KeyCode.S)) {
+        if (Input.GetKeyDown(KeyCode.S)) {
             Collider2D platformCheck;
             Collider2D otherCheck;
             platformCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Platform"));
