@@ -1,2 +1,2 @@
 # GunPrototype
-In-development 2d shooting game
+In-development 2d platformer-shooting game
