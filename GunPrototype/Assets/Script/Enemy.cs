@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-    private GameObject player;
+    protected GameObject player;
     [SerializeField] private EnemyHealthbar enemyHealthbar;
     public GameObject bulletPrefab;
 
@@ -35,9 +35,9 @@ public class Enemy : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (player != null) {
+        if (!TimeManager.isPause && player != null) {
             if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
-                player.GetComponent<HackController>().StartHack(this, 4, 5f);
+                player.GetComponent<HackController>().StartHack(this, 4, 0.05f);
             }
             CheckSeePlayer();
         }

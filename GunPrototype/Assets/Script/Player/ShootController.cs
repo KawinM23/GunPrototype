@@ -23,18 +23,19 @@ public class ShootController : MonoBehaviour
     }
 
     private void Update() {
+        if (TimeManager.isPause) {
+            if (!hc.isHacking) {
+                if (Input.GetMouseButton(0) && timeUntilFire < Time.time) {
+                    Shoot();
+                    timeUntilFire = Time.time + fireRate;
+                }
+                if (Input.GetMouseButtonDown(1)) {
+                    //ShootGun();
+                    timeUntilFire = Time.time + fireRate;
+                }
+            } else {
 
-        if (!hc.isHacking) {
-            if (Input.GetMouseButton(0) && timeUntilFire < Time.time) {
-                Shoot();
-                timeUntilFire = Time.time + fireRate;
             }
-            if (Input.GetMouseButtonDown(1)) {
-                //ShootGun();
-                timeUntilFire = Time.time + fireRate;
-            }
-        } else {
-
         }
     }
 

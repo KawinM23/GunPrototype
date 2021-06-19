@@ -14,9 +14,6 @@ public class LevelManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             LoadLevel(1);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            LoadLevel(1);
-        }
     }
 
     public static void LoadTestScene() {

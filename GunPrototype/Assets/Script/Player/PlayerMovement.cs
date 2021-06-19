@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     private BoxCollider2D bc;
 
     public float movementSpeed;
-    
+
 
     public float jumpForce = 10f;
     public bool isJumping;
@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour {
     public float jumpTime;
     public Transform feet;
     public LayerMask groundLayers;
-    int groundLayerMask ;
+    int groundLayerMask;
 
     [HideInInspector] public bool isFacingRight = true;
 
@@ -30,29 +30,28 @@ public class PlayerMovement : MonoBehaviour {
         hc = GetComponent<HackController>();
         bc = GetComponent<BoxCollider2D>();
         groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Enemy");
-        
+
     }
 
     public void Update() {
-        mx = Input.GetAxisRaw("Horizontal");
+        if (!TimeManager.isPause) {
+            mx = Input.GetAxisRaw("Horizontal");
 
-        if (mx > 0f) {
-            isFacingRight = true;
-        } else if (mx < 0f) {
-            isFacingRight = false;
+            if (mx > 0f) {
+                isFacingRight = true;
+            } else if (mx < 0f) {
+                isFacingRight = false;
+            }
+
+            Jump();
+            JumpDown();
+
+
+            if (Input.GetKeyDown(KeyCode.F)) {
+                //CM.GetComponent<CinemachineVirtualCamera>().m_Follow = GameObject.Find("Enemy1").transform;
+
+            }
         }
-
-        Jump();
-        JumpDown();
-
-
-        if (Input.GetKeyDown(KeyCode.F)) {
-            //CM.GetComponent<CinemachineVirtualCamera>().m_Follow = GameObject.Find("Enemy1").transform;
-
-        }
-
-
-
     }
 
     public void FixedUpdate() {
@@ -75,7 +74,7 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         if (Input.GetKey(KeyCode.Space) && isJumping) {
-            if (jumpTimeCounter>=0) {
+            if (jumpTimeCounter >= 0) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce * 0.9f);
                 jumpTimeCounter -= Time.deltaTime;
 
@@ -90,16 +89,16 @@ public class PlayerMovement : MonoBehaviour {
 
     }
     void JumpDown() {
+        if (Input.GetKey(KeyCode.S)) {
+            Collider2D platformCheck;
+            Collider2D otherCheck;
+            platformCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Platform"));
+            otherCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Enemy"));
 
-        Collider2D platformCheck;
-        Collider2D otherCheck;
-        platformCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Platform"));
-        otherCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Enemy"));
-
-        if (Input.GetKey(KeyCode.S) && platformCheck != null && otherCheck == null && !bc.isTrigger) {
-            bc.isTrigger = true;
+            if (platformCheck != null && otherCheck == null && !bc.isTrigger) {
+                bc.isTrigger = true;
+            }
         }
-
     }
 
     public bool CheckGrounded() {

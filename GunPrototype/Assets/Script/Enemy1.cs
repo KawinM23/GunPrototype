@@ -20,6 +20,15 @@ public class Enemy1 : Enemy {
         shootCooldown = 1.5f;
     }
 
+    private void Update() {
+        if (!TimeManager.isPause && player != null) {
+            if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
+                player.GetComponent<HackController>().StartHack(this, 4, 0.15f);
+            }
+            CheckSeePlayer();
+        }
+    }
+
 
 
 }
