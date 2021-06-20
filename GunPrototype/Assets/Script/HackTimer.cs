@@ -15,9 +15,12 @@ public class HackTimer : MonoBehaviour
     float percentage;
     Color color;
 
+    private void Awake() {
+        ht = this.gameObject;
+    }
+
     void Start()
     {
-        ht = GameObject.Find("HackTimer");
         hc = GameObject.Find("Player").GetComponent<HackController>();
         image1 = GameObject.Find("Timebar1").GetComponent<Image>();
         image2 = GameObject.Find("Timebar2").GetComponent<Image>();

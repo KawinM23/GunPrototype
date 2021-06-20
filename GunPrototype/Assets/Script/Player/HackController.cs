@@ -39,7 +39,6 @@ public class HackController : MonoBehaviour {
     void Update() {
         if (!TimeManager.isPause && isHacking) {
             hackTimePass += Time.deltaTime;
-            Debug.Log("P" + hackTime + hackPos + " " + hackList[hackPos]);
             if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {
                 hi.Press(hackPos);
                 hackPos++;
@@ -61,15 +60,13 @@ public class HackController : MonoBehaviour {
             targetEnemy = enemy;
 
             hackList = RandomList(size);
-            hi.ShowHackList(hackList);
-            tm.DoSlowmotion();
-
+            
             hackDuration = duration;
             hackTimePass = 0f;
 
+            hi.ShowHackList(hackList);
             ht.ShowTimer();
-
-            Debug.Log("StartHack");
+            tm.DoSlowmotion();
         }
     }
 
@@ -110,6 +107,21 @@ public class HackController : MonoBehaviour {
 
     public bool PressOtherKeys(KeyCode kc) {
         return false;
+    }
+    
+    public int GetKeyNumber(int index) {
+        KeyCode kc = hackList[index];
+        if (kc == KeyCode.W) {
+            return 1;
+        } else if (kc == KeyCode.A) {
+            return 2;
+        } else if (kc == KeyCode.S) {
+            return 3;
+        } else if (kc == KeyCode.D) {
+            return 4;
+        } else {
+            return 0;
+        }
     }
 
     public float GetTimePercentage() {

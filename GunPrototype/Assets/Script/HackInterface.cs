@@ -14,21 +14,23 @@ public class HackInterface : MonoBehaviour
     [SerializeField] private Sprite downImage;
     [SerializeField] private Sprite leftImage;
     [SerializeField] private Sprite rightImage;
-    [SerializeField] private GameObject pressParticle;
+
+    [SerializeField] private GameObject upParticle;
+    [SerializeField] private GameObject downParticle;
+    [SerializeField] private GameObject leftParticle;
+    [SerializeField] private GameObject rightParticle;
 
     float size;
+
+    private void Awake() {
+        hi = this.gameObject;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        hi = GameObject.Find("HackInterface");
         canvasTransform = GameObject.Find("Canvas").transform;
         hc = GameObject.Find("Player").GetComponent<HackController>();
-
-
-        ParticleSystem.MainModule main = pressParticle.GetComponent<ParticleSystem>().main;
-        //Use Unscaled Time
-        main.useUnscaledTime = true;
     }
 
     public void ShowHackList(KeyCode[] keyCodes) {
@@ -44,10 +46,10 @@ public class HackInterface : MonoBehaviour
                 hi.transform.GetChild(i).GetComponent<Image>().sprite = upImage;
             } else if(keyCodes[i] == KeyCode.A) {
                 hi.transform.GetChild(i).GetComponent<Image>().sprite = leftImage;
-            } else if (keyCodes[i] == KeyCode.D) {
-                hi.transform.GetChild(i).GetComponent<Image>().sprite = rightImage;
             } else if (keyCodes[i] == KeyCode.S) {
                 hi.transform.GetChild(i).GetComponent<Image>().sprite = downImage;
+            } else if (keyCodes[i] == KeyCode.D) {
+                hi.transform.GetChild(i).GetComponent<Image>().sprite = rightImage;
             }
         }
 
@@ -66,10 +68,26 @@ public class HackInterface : MonoBehaviour
     }
 
     public void Press(int index) {
-        GameObject newParticle = Instantiate(pressParticle);
+        GameObject newParticle = Instantiate(GetParticle(index));
         newParticle.transform.SetParent(canvasTransform);
         newParticle.GetComponent<RectTransform>().position = hi.transform.GetChild(index).gameObject.GetComponent<RectTransform>().position;
         newParticle.GetComponent<ParticleSystem>().Play();
         Destroy(newParticle, 1f);
     }
+
+    public GameObject GetParticle(int index) {
+        switch (hc.GetKeyNumber(index)) {
+            case 1:
+                return upParticle;
+            case 2:
+                return leftParticle;
+            case 3:
+                return downParticle;
+            case 4:
+                return rightParticle;
+            default:
+                return upParticle;
+        }
+    }
+
 }

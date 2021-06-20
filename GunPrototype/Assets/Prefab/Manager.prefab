@@ -2037,7 +2037,13 @@ MonoBehaviour:
   downImage: {fileID: 21300000, guid: 1a034e99716e9bb408bfe19a51950dc1, type: 3}
   leftImage: {fileID: 21300000, guid: 71013baa80b5e0348a0db9c48d5ba781, type: 3}
   rightImage: {fileID: 21300000, guid: 50b930a873b70ff4d8752f4f32ed75c3, type: 3}
-  pressParticle: {fileID: 6388506659325583686, guid: 942dbe36994a2ea4fae83825e5364c24,
+  upParticle: {fileID: 6388506659325583686, guid: 0f399cd57f7f9944fb75051b003ea5ee,
+    type: 3}
+  downParticle: {fileID: 6388506659325583686, guid: 0f399cd57f7f9944fb75051b003ea5ee,
+    type: 3}
+  leftParticle: {fileID: 6388506659325583686, guid: 0f399cd57f7f9944fb75051b003ea5ee,
+    type: 3}
+  rightParticle: {fileID: 6388506659325583686, guid: 0f399cd57f7f9944fb75051b003ea5ee,
     type: 3}
 --- !u!225 &1310494442375857803
 CanvasGroup:
