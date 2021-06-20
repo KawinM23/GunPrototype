@@ -33,21 +33,21 @@ public class Bullet : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision != null) {
-            if (collision.gameObject.tag == "Bullet") {
-                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(),true);
-                return;
-            }
-            Destroy(gameObject);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision) {
+    //    if (collision != null) {
+    //        if (collision.gameObject.tag == "Bullet") {
+    //            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(),true);
+    //            return;
+    //        }
+    //        Destroy(gameObject);
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision != null) {
-            if (collision.gameObject.tag == "Bullet") {
-                return;
-            }
+            //if (collision.gameObject.tag == "Bullet") {
+            //    return;
+            //}
             if(collision.gameObject.CompareTag("Enemy")) {
                 collision.gameObject.GetComponent<Enemy>().getHit(bulletDamage);
             }

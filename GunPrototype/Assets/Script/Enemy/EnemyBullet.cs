@@ -24,23 +24,23 @@ public class EnemyBullet : MonoBehaviour {
         GameObject.Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision != null) {
-            if (collision.gameObject.tag == "Bullet") {
-                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(),true);
-                return;
-            }
-            if (collision.gameObject.tag == "Player") {
-                PlayerController.getHit(bulletDamage);
-            }
-            Destroy(gameObject);
+    //private void OnCollisionEnter2D(Collision2D collision) {
+    //    if (collision != null) {
+    //        if (collision.gameObject.tag == "Bullet") {
+    //            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(), true);
+    //            return;
+    //        }
+    //        if (collision.gameObject.tag == "Player") {
+    //            PlayerController.getHit(bulletDamage);
+    //        }
+    //        Destroy(gameObject);
 
-        }
-    }
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision != null) {
-            if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy")) {
+            if (collision.gameObject.CompareTag("Enemy")) {
                 return;
             }
             if (collision.gameObject.CompareTag("Player")) {
