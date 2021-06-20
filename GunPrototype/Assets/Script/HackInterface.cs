@@ -14,27 +14,28 @@ public class HackInterface : MonoBehaviour
     [SerializeField] private Sprite downImage;
     [SerializeField] private Sprite leftImage;
     [SerializeField] private Sprite rightImage;
-    [SerializeField] private PressParticle pressParticle;
+    [SerializeField] private GameObject pressParticle;
+
+    float size;
 
     // Start is called before the first frame update
     void Start()
     {
         hi = GameObject.Find("HackInterface");
         canvasTransform = GameObject.Find("Canvas").transform;
-        hi.SetActive(false);
         hc = GameObject.Find("Player").GetComponent<HackController>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
+
+        ParticleSystem.MainModule main = pressParticle.GetComponent<ParticleSystem>().main;
+        //Use Unscaled Time
+        main.useUnscaledTime = true;
     }
 
     public void ShowHackList(KeyCode[] keyCodes) {
-        Debug.Log("ShowHackList");
-        for(int i = 0; i < keyCodes.Length; i++) {
+        size = Mathf.Clamp((Screen.height / 5), 80, 200);
+        for (int i = 0; i < keyCodes.Length; i++) {
             GameObject tp = Instantiate(template);
+            tp.GetComponent<RectTransform>().sizeDelta = new Vector2(size,size);
             tp.transform.SetParent(hi.transform);
         }
 
@@ -43,9 +44,9 @@ public class HackInterface : MonoBehaviour
                 hi.transform.GetChild(i).GetComponent<Image>().sprite = upImage;
             } else if(keyCodes[i] == KeyCode.A) {
                 hi.transform.GetChild(i).GetComponent<Image>().sprite = leftImage;
-            } else if (keyCodes[i] == KeyCode.S) {
-                hi.transform.GetChild(i).GetComponent<Image>().sprite = rightImage;
             } else if (keyCodes[i] == KeyCode.D) {
+                hi.transform.GetChild(i).GetComponent<Image>().sprite = rightImage;
+            } else if (keyCodes[i] == KeyCode.S) {
                 hi.transform.GetChild(i).GetComponent<Image>().sprite = downImage;
             }
         }
@@ -65,7 +66,10 @@ public class HackInterface : MonoBehaviour
     }
 
     public void Press(int index) {
-        Debug.Log(canvasTransform.InverseTransformPoint(hi.transform.GetChild(index).position));
-        pressParticle.Press(canvasTransform.InverseTransformPoint(hi.transform.GetChild(index).position));
+        GameObject newParticle = Instantiate(pressParticle);
+        newParticle.transform.SetParent(canvasTransform);
+        newParticle.GetComponent<RectTransform>().position = hi.transform.GetChild(index).gameObject.GetComponent<RectTransform>().position;
+        newParticle.GetComponent<ParticleSystem>().Play();
+        Destroy(newParticle, 1f);
     }
 }
