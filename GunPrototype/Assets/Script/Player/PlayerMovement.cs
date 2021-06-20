@@ -136,7 +136,6 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision != null && collision.gameObject.CompareTag("Platform")) {
-            Debug.Log("Exit");
             bc.isTrigger = false;
         }
     }

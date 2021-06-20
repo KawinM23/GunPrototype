@@ -36,6 +36,7 @@ public class HackController : MonoBehaviour {
             hackTimePass += Time.deltaTime;
             Debug.Log("P" + hackTime + hackPos + " " + hackList[hackPos]);
             if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {
+                hi.Press(hackPos);
                 hackPos++;
                 if (hackPos == hackList.Length) {
                     HackSuccess();

@@ -29,6 +29,14 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+    public static string GetSceneName() {
+        return SceneManager.GetActiveScene().name;
+    }
+
+    public static bool InLevel() {
+        return SceneManager.GetActiveScene().name.Contains("Level");
+    }
+
     public static void LoadTestScene() {
         SceneManager.LoadScene("TestScene");
     }
@@ -38,8 +46,17 @@ public class LevelManager : MonoBehaviour {
         playingLevel = level;
     }
 
-    public static void Retry() {
+    public static void StaticRetry() {
         SceneManager.LoadScene("Level" + playingLevel);
+    }
+
+    public void Retry() {
+        if(playingLevel == 0) {
+            SceneManager.LoadScene("Menu");
+        } else if (InLevel()) {
+            SceneManager.LoadScene("Level" + playingLevel);
+        }
+        
     }
 
     public static void FinishLevel() {

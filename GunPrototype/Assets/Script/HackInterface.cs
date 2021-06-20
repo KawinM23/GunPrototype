@@ -7,17 +7,20 @@ public class HackInterface : MonoBehaviour
 {
     GameObject hi;
     HackController hc;
+    Transform canvasTransform;
 
     [SerializeField] private GameObject template;
     [SerializeField] private Sprite upImage;
     [SerializeField] private Sprite downImage;
     [SerializeField] private Sprite leftImage;
     [SerializeField] private Sprite rightImage;
+    [SerializeField] private PressParticle pressParticle;
 
     // Start is called before the first frame update
     void Start()
     {
         hi = GameObject.Find("HackInterface");
+        canvasTransform = GameObject.Find("Canvas").transform;
         hi.SetActive(false);
         hc = GameObject.Find("Player").GetComponent<HackController>();
     }
@@ -59,5 +62,10 @@ public class HackInterface : MonoBehaviour
         foreach (Transform child in hi.transform) {
             Destroy(child.gameObject);
         }
+    }
+
+    public void Press(int index) {
+        Debug.Log(canvasTransform.InverseTransformPoint(hi.transform.GetChild(index).position));
+        pressParticle.Press(canvasTransform.InverseTransformPoint(hi.transform.GetChild(index).position));
     }
 }

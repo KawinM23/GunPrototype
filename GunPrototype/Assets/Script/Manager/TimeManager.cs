@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    private GameObject PauseMenu;
+
     public static bool isPause;
     private float tempTimeScale;
-    private GameObject PauseMenu;
 
     public bool hacking;
     public float slowdownFactor;
@@ -29,7 +30,7 @@ public class TimeManager : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape) && LevelManager.InLevel()) {
             TogglePause();
         }
     }
