@@ -690,8 +690,8 @@ CanvasGroup:
   m_GameObject: {fileID: 3312878294423012885}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &3498474972020920202
 GameObject:
@@ -782,7 +782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hacking: 0
   slowdownFactor: 0.05
-  slowdownLength: 1
+  slowdownLength: 0.75
 --- !u!114 &526072740004638067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,7 +1599,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 1.2
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -1967,7 +1967,6 @@ GameObject:
   - component: {fileID: 3467717337236460210}
   - component: {fileID: 7336540347291045279}
   - component: {fileID: 8113466288774444386}
-  - component: {fileID: 1310494442375857803}
   m_Layer: 5
   m_Name: HackInterface
   m_TagString: Untagged
@@ -2045,15 +2044,3 @@ MonoBehaviour:
     type: 3}
   rightParticle: {fileID: 6388506659325583686, guid: 0f399cd57f7f9944fb75051b003ea5ee,
     type: 3}
---- !u!225 &1310494442375857803
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9046238033018348363}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0

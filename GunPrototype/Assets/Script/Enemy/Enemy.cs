@@ -7,10 +7,8 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private EnemyHealthbar enemyHealthbar;
     public GameObject bulletPrefab;
 
-
-
     protected int hp;
-    protected int maxHp = 50;
+    public int maxHp;
     protected int[] shield;
     protected bool[] shieldPosition;
     public int shieldPointer;
@@ -48,8 +46,8 @@ public class Enemy : MonoBehaviour {
     }
 
     public void getHit(int damage) {
-        if (shieldPointer != -1 && hp - damage <= shield[shieldPointer]) {
 
+        if (shieldPointer != -1 && hp - damage <= shield[shieldPointer]) {
             hp = shield[shieldPointer];
             hackable = true;
         } else {

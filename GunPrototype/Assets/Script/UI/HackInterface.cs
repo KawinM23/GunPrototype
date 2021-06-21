@@ -36,9 +36,8 @@ public class HackInterface : MonoBehaviour
     public void ShowHackList(KeyCode[] keyCodes) {
         size = Mathf.Clamp((Screen.height / 5), 80, 200);
         for (int i = 0; i < keyCodes.Length; i++) {
-            GameObject tp = Instantiate(template);
+            GameObject tp = Instantiate(template, hi.transform);
             tp.GetComponent<RectTransform>().sizeDelta = new Vector2(size,size);
-            tp.transform.SetParent(hi.transform);
         }
 
         for (int i = 0; i < keyCodes.Length; i++) {
@@ -68,8 +67,7 @@ public class HackInterface : MonoBehaviour
     }
 
     public void Press(int index) {
-        GameObject newParticle = Instantiate(GetParticle(index));
-        newParticle.transform.SetParent(canvasTransform);
+        GameObject newParticle = Instantiate(GetParticle(index), canvasTransform);
         newParticle.GetComponent<RectTransform>().position = hi.transform.GetChild(index).gameObject.GetComponent<RectTransform>().position;
         newParticle.GetComponent<ParticleSystem>().Play();
         Destroy(newParticle, 1f);

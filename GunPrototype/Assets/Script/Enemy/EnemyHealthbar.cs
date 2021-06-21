@@ -32,6 +32,9 @@ public class EnemyHealthbar : MonoBehaviour
             if (enemy.isShield(i) && (enemy.shieldPointer == -1 || enemy.shieldPointer<i) && healthGroups[(int)i].GetComponent<SpriteRenderer>().color != healthColor) {
                 Debug.Log("Shield "+ i + ""+ enemy.shieldPointer + "Change Color");
                 healthGroups[(int)i].GetComponent<SpriteRenderer>().color = healthColor;
+
+                ParticleSystem.ShapeModule shape = ps.shape;
+                shape.position = healthGroups[(int)i].transform.localPosition;
                 ps.Play();
             }
         }

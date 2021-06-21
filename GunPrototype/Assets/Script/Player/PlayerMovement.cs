@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody2D rb;
     private HackController hc;
     private BoxCollider2D bc;
+    private Transform manager;
+    [SerializeField] private GameObject jp;
+
 
     public float movementSpeed;
 
@@ -29,6 +32,7 @@ public class PlayerMovement : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         hc = GetComponent<HackController>();
         bc = GetComponent<BoxCollider2D>();
+        manager = GameObject.Find("Manager").transform;
         groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Enemy");
 
     }
@@ -67,10 +71,14 @@ public class PlayerMovement : MonoBehaviour {
     void Jump() {
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2) {
+            if (jumpCount == 1) {
+                PlayJumpParticle();
+            }
             jumpCount++;
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            
         }
 
         if (Input.GetKey(KeyCode.Space) && isJumping) {
@@ -117,6 +125,11 @@ public class PlayerMovement : MonoBehaviour {
         } else {
             return false;
         }
+    }
+
+    public void PlayJumpParticle() {
+        GameObject newJp = Instantiate(jp,manager,true);
+        newJp.GetComponent<ParticleSystem>().Play();
     }
 
     public void ResetJumping() {

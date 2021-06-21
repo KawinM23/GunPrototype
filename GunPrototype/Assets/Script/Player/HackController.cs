@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HackController : MonoBehaviour {
     private TimeManager tm;
+    private CanvasGroup hackGroup;
     private HackInterface hi;
     private HackTimer ht;
 
@@ -17,12 +18,15 @@ public class HackController : MonoBehaviour {
     float hackDuration;
     float hackTimePass;
 
+    public float fadeOutDuration;
+
     Enemy targetEnemy; 
 
 
     // Start is called before the first frame update
     void Start() {
         tm = GameObject.Find("Manager").GetComponent<TimeManager>();
+        hackGroup = GameObject.Find("HackGroup").GetComponent<CanvasGroup>();
         hi = GameObject.Find("HackInterface").GetComponent<HackInterface>();
         ht = GameObject.Find("HackTimer").GetComponent<HackTimer>();
 
@@ -64,6 +68,7 @@ public class HackController : MonoBehaviour {
             hackDuration = duration;
             hackTimePass = 0f;
 
+            hackGroup.alpha = 1;
             hi.ShowHackList(hackList);
             ht.ShowTimer();
             tm.DoSlowmotion();
@@ -92,9 +97,18 @@ public class HackController : MonoBehaviour {
             hackPos = 0;
             hackTime++;
             targetEnemy.EndHack();
-            hi.HideInterface();
-            ht.HideTimer();
+
+            StartCoroutine(HideHackGroup());
         }
+    }
+
+    IEnumerator HideHackGroup() {
+        while (hackGroup.alpha != 0) {
+            hackGroup.alpha -= (1f / fadeOutDuration) * Time.unscaledDeltaTime;
+            yield return null;
+        }
+        hi.HideInterface();
+        ht.HideTimer();
     }
 
     public KeyCode[] RandomList(int size) {
