@@ -11,12 +11,15 @@ public class HackController : MonoBehaviour {
     public bool isHacking = false;
 
 
+
     static KeyCode[] randomList = new KeyCode[4] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
     KeyCode[] hackList;
     int hackPos;
     int hackTime;
     float hackDuration;
     float hackTimePass;
+    public  float hackCooldown;
+    private float cooldownTracker;
 
     public float fadeOutDuration;
 
@@ -37,6 +40,7 @@ public class HackController : MonoBehaviour {
         hackPos = 0;
         hackTime = 0;
         hackDuration = 0;
+        cooldownTracker = 0;
     }
 
     // Update is called once per frame
@@ -55,11 +59,16 @@ public class HackController : MonoBehaviour {
                 HackFailed();
             }
         }
+        if (cooldownTracker > 0) {
+            cooldownTracker -= Time.deltaTime;
+        } else if (cooldownTracker < 0) {
+            cooldownTracker = 0;
+        }
 
     }
 
     public void StartHack(Enemy enemy,int size,float duration) {
-        if (!isHacking) {
+        if (!isHacking && cooldownTracker == 0) {
             isHacking = true;
             targetEnemy = enemy;
 
@@ -86,6 +95,7 @@ public class HackController : MonoBehaviour {
     public void HackFailed() {
         if (isHacking) {
             Debug.Log("Fail");
+            cooldownTracker = hackCooldown;
             EndHack();
         }
     }

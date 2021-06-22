@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
     protected GameObject player;
     [SerializeField] private EnemyHealthbar enemyHealthbar;
+    [SerializeField] Transform[] pathPoints;
+    private int pathPointer;
     public GameObject bulletPrefab;
 
     protected int hp;
@@ -15,20 +17,26 @@ public class Enemy : MonoBehaviour {
 
     protected bool hackable;
 
-    protected float shootCooldown;
+    public float speed;
+    public float waitDuration;
+    public int seeDis;
+    public float shootCooldown;
     protected float nextShootTime;
 
-    protected int seeDis = 20;
+    
 
     public LayerMask groundLayer;
 
     // Start is called before the first frame update
     protected void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
+        pathPointer = 0;
 
         hp = maxHp;
         hackable = false;
         nextShootTime = Time.time + 2;
+
+        StartCoroutine(FollowPath());
     }
 
     // Update is called once per frame
@@ -37,7 +45,6 @@ public class Enemy : MonoBehaviour {
             if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
                 player.GetComponent<HackController>().StartHack(this, 4, 0.05f);
             }
-            CheckSeePlayer();
         }
     }
 
@@ -89,7 +96,34 @@ public class Enemy : MonoBehaviour {
         getHit(0);
     }
 
-    public void CheckSeePlayer() {
+    IEnumerator FollowPath() {
+        if(pathPoints.Length != 0) {
+            foreach(Transform transform in pathPoints) {
+                transform.SetParent(GameObject.Find("Path").transform);
+            }
+        }
+        
+        while (pathPoints.Length != 0) {
+            yield return StartCoroutine(MoveToNextPoint(pathPointer));
+        }
+    }
+
+    IEnumerator MoveToNextPoint(int pointer) {
+        Vector2 destination = new Vector2(pathPoints[pointer].position.x, transform.position.y);
+        while(transform.position.x != destination.x) {
+            if (!CheckSeePlayer()) {
+                transform.position = Vector2.MoveTowards(transform.position, destination, speed*Time.deltaTime);
+            }
+            yield return null;
+        }
+        pathPointer++;
+        if(pathPointer== pathPoints.Length) {
+            pathPointer = 0;
+        }
+        yield return new WaitForSeconds(waitDuration);
+    }
+
+    public bool CheckSeePlayer() {
 
         Vector2 endPoint = transform.position + (player.transform.position - transform.position).normalized * seeDis;
 
@@ -97,12 +131,12 @@ public class Enemy : MonoBehaviour {
 
         Debug.DrawRay(transform.position, (player.transform.position - transform.position).normalized * seeDis, Color.red);
 
-        if (hit.collider != null) {
-            if (hit.collider.gameObject.CompareTag("Player")) {
-                Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.green);
-                ShootPlayer();
-            }
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("Player")) {
+            Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.green);
+            ShootPlayer();
+            return true;
         }
+        return false;
     }
     public void ShootPlayer() {
         if (Time.time >= nextShootTime && bulletPrefab != null) {

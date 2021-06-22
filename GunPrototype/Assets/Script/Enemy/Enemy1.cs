@@ -14,7 +14,6 @@ public class Enemy1 : Enemy {
         shieldPointer = 0;
 
         seeDis = 25;
-        shootCooldown = 1.5f;
     }
 
     private void Update() {
