@@ -12,17 +12,6 @@ public class EnemyHealthbar : MonoBehaviour
     public Color healthColor;
     public Color shieldColor;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnGetHit() {
         float healthNumber = enemy.HealthPercentage() * healthGroups.Length;
         for (float i = 0; i < healthGroups.Length; i++) {

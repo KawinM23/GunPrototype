@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HackController : MonoBehaviour {
@@ -10,24 +9,21 @@ public class HackController : MonoBehaviour {
 
     public bool isHacking = false;
 
-
-
-    static KeyCode[] randomList = new KeyCode[4] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
-    KeyCode[] hackList;
-    int hackPos;
-    int hackTime;
-    float hackDuration;
-    float hackTimePass;
-    public  float hackCooldown;
+    private static KeyCode[] randomList = new KeyCode[4] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
+    private KeyCode[] hackList;
+    private int hackPos;
+    private int hackTime;
+    private float hackDuration;
+    private float hackTimePass;
+    public float hackCooldown;
     private float cooldownTracker;
 
     public float fadeOutDuration;
 
-    Enemy targetEnemy; 
-
+    private Enemy targetEnemy;
 
     // Start is called before the first frame update
-    void Start() {
+    private void Start() {
         tm = GameObject.Find("Manager").GetComponent<TimeManager>();
         hackGroup = GameObject.Find("HackGroup").GetComponent<CanvasGroup>();
         hi = GameObject.Find("HackInterface").GetComponent<HackInterface>();
@@ -44,7 +40,7 @@ public class HackController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    private void Update() {
         if (!TimeManager.isPause && isHacking) {
             hackTimePass += Time.deltaTime;
             if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {
@@ -64,16 +60,32 @@ public class HackController : MonoBehaviour {
         } else if (cooldownTracker < 0) {
             cooldownTracker = 0;
         }
-
     }
 
-    public void StartHack(Enemy enemy,int size,float duration) {
+    public void StartEnemyHack(Enemy enemy, int size, float duration) {
         if (!isHacking && cooldownTracker == 0) {
             isHacking = true;
             targetEnemy = enemy;
 
             hackList = RandomList(size);
-            
+
+            hackDuration = duration;
+            hackTimePass = 0f;
+
+            hackGroup.alpha = 1;
+            hi.ShowHackList(hackList);
+            ht.ShowTimer();
+            tm.DoSlowmotion();
+        }
+    }
+
+    public void StartDoorHack(Enemy enemy, int size, float duration) {
+        if (!isHacking && cooldownTracker == 0) {
+            isHacking = true;
+            targetEnemy = enemy;
+
+            hackList = RandomList(size);
+
             hackDuration = duration;
             hackTimePass = 0f;
 
@@ -112,7 +124,7 @@ public class HackController : MonoBehaviour {
         }
     }
 
-    IEnumerator HideHackGroup() {
+    private IEnumerator HideHackGroup() {
         while (hackGroup.alpha != 0) {
             hackGroup.alpha -= (1f / fadeOutDuration) * Time.unscaledDeltaTime;
             yield return null;
@@ -132,7 +144,7 @@ public class HackController : MonoBehaviour {
     public bool PressOtherKeys(KeyCode kc) {
         return false;
     }
-    
+
     public int GetKeyNumber(int index) {
         KeyCode kc = hackList[index];
         if (kc == KeyCode.W) {

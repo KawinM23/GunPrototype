@@ -26,7 +26,7 @@ public class ShootController : MonoBehaviour
     private void Start() {
         pm = gameObject.GetComponent<PlayerMovement>();
         hc = GetComponent<HackController>();
-        if (SceneManager.GetActiveScene().name.Contains("Level")) {
+        if (LevelManager.InLevel()) {
             shootable = true;
             gunType = 0;
         } else {

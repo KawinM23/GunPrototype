@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     public static bool InLevel() {
-        return SceneManager.GetActiveScene().name.Contains("Level");
+        return SceneManager.GetActiveScene().name.Contains("Level") || SceneManager.GetActiveScene().name.Contains("Tutorial");
     }
 
     public static void LoadTestScene() {

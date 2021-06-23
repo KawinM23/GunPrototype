@@ -39,15 +39,6 @@ public class Enemy : MonoBehaviour {
         StartCoroutine(FollowPath());
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (!TimeManager.isPause && player != null) {
-            if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
-                player.GetComponent<HackController>().StartHack(this, 4, 0.05f);
-            }
-        }
-    }
-
     public float HealthPercentage() {
         return ((float)hp / (float)maxHp);
     }

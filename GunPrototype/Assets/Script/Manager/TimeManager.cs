@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
     private GameObject PauseMenu;
+    [SerializeField] private Text timer;
 
+    private bool inLevel;
     public static bool isPause;
     private float tempTimeScale;
 
@@ -13,14 +16,24 @@ public class TimeManager : MonoBehaviour
     public float slowdownFactor;
     public float slowdownLength;
 
+    public float timePass;
+
     private void Start() {
         PauseMenu = GameObject.Find("PauseMenu");
         PauseMenu.SetActive(false);
         isPause = false;
+        Time.timeScale = 1;
+
+        timePass = 0;
+        inLevel = LevelManager.InLevel();
+
+        if (!inLevel) {
+            timer.gameObject.SetActive(false);
+        }
     }
 
     public void Update() {
-        if (!isPause) {
+        if (inLevel && !isPause) {
             if (!hacking && Time.timeScale != 1f) {
                 if (Time.timeScale < 0.98f) {
                     Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
@@ -29,6 +42,8 @@ public class TimeManager : MonoBehaviour
                     Time.timeScale = 1f;
                 }
             }
+            timePass += Time.deltaTime;
+            timer.text = "Time : " + timePass.ToString("0.0");
         }
         if (Input.GetKeyDown(KeyCode.Escape) && LevelManager.InLevel()) {
             TogglePause();

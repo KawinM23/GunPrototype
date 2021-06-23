@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Cinemachine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     private Rigidbody2D rb;
@@ -10,9 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     private Transform manager;
     [SerializeField] private GameObject jp;
 
-
     public float movementSpeed;
-
 
     public float jumpForce = 10f;
     public bool isJumping;
@@ -21,12 +16,11 @@ public class PlayerMovement : MonoBehaviour {
     public float jumpTime;
     public Transform feet;
     public LayerMask groundLayers;
-    int groundLayerMask;
+    private int groundLayerMask;
 
     [HideInInspector] public bool isFacingRight = true;
 
-
-    float mx;
+    private float mx;
 
     public void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -34,7 +28,6 @@ public class PlayerMovement : MonoBehaviour {
         bc = GetComponent<BoxCollider2D>();
         manager = GameObject.Find("Manager").transform;
         groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Enemy");
-
     }
 
     public void Update() {
@@ -50,10 +43,8 @@ public class PlayerMovement : MonoBehaviour {
             Jump();
             JumpDown();
 
-
             if (Input.GetKeyDown(KeyCode.F)) {
                 //CM.GetComponent<CinemachineVirtualCamera>().m_Follow = GameObject.Find("Enemy1").transform;
-
             }
         }
     }
@@ -68,8 +59,7 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    void Jump() {
-
+    private void Jump() {
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2) {
             if (jumpCount == 1) {
                 PlayJumpParticle();
@@ -78,14 +68,12 @@ public class PlayerMovement : MonoBehaviour {
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            
         }
 
         if (Input.GetKey(KeyCode.Space) && isJumping) {
             if (jumpTimeCounter >= 0) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce * 0.9f);
                 jumpTimeCounter -= Time.deltaTime;
-
             } else {
                 isJumping = false;
             }
@@ -94,9 +82,9 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space) && isJumping) {
             isJumping = false;
         }
-
     }
-    void JumpDown() {
+
+    private void JumpDown() {
         if (Input.GetKeyDown(KeyCode.S)) {
             Collider2D platformCheck;
             Collider2D otherCheck;
@@ -128,14 +116,13 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void PlayJumpParticle() {
-        GameObject newJp = Instantiate(jp,manager,true);
+        GameObject newJp = Instantiate(jp, manager, true);
         newJp.GetComponent<ParticleSystem>().Play();
     }
 
     public void ResetJumping() {
         jumpCount = 0;
     }
-
 
     public void Respawn() {
         transform.position = Vector3.zero;
@@ -152,5 +139,4 @@ public class PlayerMovement : MonoBehaviour {
             bc.isTrigger = false;
         }
     }
-
 }
