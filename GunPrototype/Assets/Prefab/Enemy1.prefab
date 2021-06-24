@@ -4892,7 +4892,7 @@ MonoBehaviour:
   shieldPointer: 0
   speed: 5
   waitDuration: 3
-  seeDis: 12
+  seeDis: 25
   shootCooldown: 1.5
   groundLayer:
     serializedVersion: 2

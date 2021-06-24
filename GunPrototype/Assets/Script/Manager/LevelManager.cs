@@ -42,8 +42,14 @@ public class LevelManager : MonoBehaviour {
     }
 
     public static void LoadLevel(int level) {
-        SceneManager.LoadScene("Level"+ level);
-        playingLevel = level;
+        if (level == -1) {
+            playingLevel = -1;
+            SceneManager.LoadScene("Tutorial");
+        } else {
+            playingLevel = level;
+            SceneManager.LoadScene("Level" + level);
+        }
+        
     }
 
     public static void StaticRetry() {
@@ -69,5 +75,10 @@ public class LevelManager : MonoBehaviour {
         playingLevel = 0;
     }
 
-    
+    public static void StaticBackToMenu() {
+        SceneManager.LoadScene("Menu");
+        playingLevel = 0;
+    }
+
+
 }

@@ -17,11 +17,15 @@ public class FinishLineScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision != null & collision.CompareTag("Player")) {
-            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy")) {
-                enemies.Add(go);
+            if (SceneManager.GetActiveScene().name.Contains("Level")) {
+                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy")) {
+                    enemies.Add(go);
+                }
+                FinishManager.FinishData(SceneManager.GetActiveScene().name, tm.timePass, timeLimited, enemies.Count == 0);
+                LevelManager.FinishLevel();
+            }else if (SceneManager.GetActiveScene().name.Contains("Tutorial")) {
+                LevelManager.StaticBackToMenu();
             }
-            FinishManager.FinishData(SceneManager.GetActiveScene().name,tm.timePass, timeLimited, enemies.Count == 0);
-            LevelManager.FinishLevel();
         }
     }
 }
