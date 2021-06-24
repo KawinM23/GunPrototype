@@ -4854,6 +4854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHacking: 0
+  hackCooldown: 0
   fadeOutDuration: 0.25
 --- !u!114 &3612458128224012353
 MonoBehaviour:
@@ -4905,7 +4906,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 5f28e84294b21fc468179d64fed1dff5, type: 3}
   m_Color: {r: 0.23529412, g: 0.7048256, b: 0.8862745, a: 1}
   m_FlipX: 0

@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour {
     public LayerMask groundLayers;
     private int groundLayerMask;
 
-    [HideInInspector] public bool isFacingRight = true;
+    [HideInInspector] public bool isFacingRight;
 
     private float mx;
 
@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour {
         bc = GetComponent<BoxCollider2D>();
         manager = GameObject.Find("Manager").transform;
         groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Enemy");
+
+        isFacingRight = true;
     }
 
     public void Update() {

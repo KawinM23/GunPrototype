@@ -61,11 +61,13 @@ public class LevelManager : MonoBehaviour {
 
     public static void FinishLevel() {
         //TODO
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Finish");
     }
 
     public void BackToMenu() {
         SceneManager.LoadScene("Menu");
         playingLevel = 0;
     }
+
+    
 }

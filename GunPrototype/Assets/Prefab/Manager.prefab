@@ -642,7 +642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Time : '
+  m_Text: 'Time : READY'
 --- !u!1 &3099397000606552270
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,6 +860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: {fileID: 6724357217144228775}
+  start: 0
   hacking: 0
   slowdownFactor: 0.05
   slowdownLength: 0.75

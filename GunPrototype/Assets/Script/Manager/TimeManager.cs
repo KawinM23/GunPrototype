@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private Text timer;
 
     private bool inLevel;
+    public bool start;
     public static bool isPause;
     private float tempTimeScale;
 
@@ -22,6 +23,7 @@ public class TimeManager : MonoBehaviour
         PauseMenu = GameObject.Find("PauseMenu");
         PauseMenu.SetActive(false);
         isPause = false;
+        start = false;
         Time.timeScale = 1;
 
         timePass = 0;
@@ -42,11 +44,16 @@ public class TimeManager : MonoBehaviour
                     Time.timeScale = 1f;
                 }
             }
-            timePass += Time.deltaTime;
-            timer.text = "Time : " + timePass.ToString("0.0");
+            if (start) {
+                timePass += Time.deltaTime;
+                timer.text = "Time : " + timePass.ToString("0.0");
+            }
         }
         if (Input.GetKeyDown(KeyCode.Escape) && LevelManager.InLevel()) {
             TogglePause();
+        }
+        if(!start && Input.anyKeyDown) {
+            start = true;
         }
     }
 
@@ -76,5 +83,7 @@ public class TimeManager : MonoBehaviour
             Pause();
         }
     }
+
+
 
 }

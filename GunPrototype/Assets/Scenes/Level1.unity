@@ -311,6 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04e23966dbbeae4f9ec47fe0c8a83ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeLimited: 25
+  enemies: []
 --- !u!4 &727211542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7032924513037284798, guid: 36a11315ecb214f49991543b251ae98f,

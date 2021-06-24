@@ -186,7 +186,6 @@ namespace Meaf75.Unity{
             if(TimeRecorderWindow.Instance)
                 TimeRecorderWindow.Instance.RepaintWindow();
 
-            Debug.Log("Your develop time has been tracked");
             return true;
         }
 
