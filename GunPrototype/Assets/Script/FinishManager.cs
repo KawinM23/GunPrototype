@@ -2,10 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FinishManager : MonoBehaviour
 {
     [SerializeField] private SaveSystem ss;
+    [SerializeField] private Text backText;
+
+    private bool backable;
 
     private static string levelName;
 
@@ -18,17 +22,23 @@ public class FinishManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        backable = false;
+        backText.enabled = false;
         //StartCoroutine();
         Debug.Log(timePass + "/" + timeLimited);
         Debug.Log(allEnemiesDefeated);
         inTime = timePass <= timeLimited;
 
         SaveFinish();
+        Invoke("Back",3f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(backable && Input.GetKeyDown(KeyCode.Space)) {
+            LevelManager.StaticBackToMenu();
+        }
         
     }
 
@@ -47,7 +57,6 @@ public class FinishManager : MonoBehaviour
                     if (timePass < ld.timeUsed || ld.timeUsed == 0) {
                         ld.timeUsed = timePass;
                     }
-
                     ld.SetStars(inTime, allEnemiesDefeated);
                 }
             }
@@ -55,7 +64,10 @@ public class FinishManager : MonoBehaviour
         } else {
             Debug.LogWarning("No Data");
         }
+    }
 
-        
+    private void Back() {
+        backable = true;
+        backText.enabled = true;
     }
 }

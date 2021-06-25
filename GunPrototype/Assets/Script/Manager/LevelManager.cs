@@ -5,14 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
     private GameObject player;
+    private GameObject pauseTab;
 
     private static int playingLevel = 0;
 
     private void Start() {
         player = GameObject.Find("Player");
+        pauseTab = GameObject.Find("PauseTab");
         string level = SceneManager.GetActiveScene().name;
         if (level.Equals("Menu")) {
             playingLevel = 0;
+            pauseTab.SetActive(false);
         } else if (level.Contains("Level")) {
             int levelNumber;
             levelNumber =  int.Parse(level.Substring(5));

@@ -292,8 +292,8 @@ GameObject:
   m_Component:
   - component: {fileID: 926608633}
   - component: {fileID: 926608632}
-  - component: {fileID: 926608631}
   - component: {fileID: 926608634}
+  - component: {fileID: 926608631}
   m_Layer: 8
   m_Name: Door
   m_TagString: Ground
@@ -403,6 +403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea9161cfeb30784bb6f1ad004f71b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hackSize: 5
+  hackTime: 4
 --- !u!1001 &933101387
 PrefabInstance:
   m_ObjectHideFlags: 0

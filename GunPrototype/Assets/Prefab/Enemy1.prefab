@@ -4890,6 +4890,8 @@ MonoBehaviour:
     type: 3}
   maxHp: 100
   shieldPointer: 0
+  hackSize: 4
+  hackTime: 3
   speed: 5
   waitDuration: 3
   seeDis: 25

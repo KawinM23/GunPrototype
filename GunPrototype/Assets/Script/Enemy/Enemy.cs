@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     protected GameObject player;
+    protected HackController hc;
     [SerializeField] private EnemyHealthbar enemyHealthbar;
     [SerializeField] Transform[] pathPoints;
     private int pathPointer;
@@ -16,6 +17,8 @@ public class Enemy : MonoBehaviour {
     public int shieldPointer;
 
     protected bool hackable;
+    public int hackSize;
+    public float hackTime;
 
     public float speed;
     public float waitDuration;
@@ -30,6 +33,7 @@ public class Enemy : MonoBehaviour {
     // Start is called before the first frame update
     protected void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
+        hc = player.GetComponent<HackController>();
         pathPointer = 0;
 
         hp = maxHp;
@@ -45,12 +49,12 @@ public class Enemy : MonoBehaviour {
 
     public void getHit(int damage) {
 
-        if (shieldPointer != -1 && hp - damage <= shield[shieldPointer]) {
+        if (shieldPointer != -1 && hp - damage <= shield[shieldPointer] && !hackable) {
             hp = shield[shieldPointer];
             hackable = true;
-        } else {
+            hc.AddToHackableList(this.gameObject);
+        } else if(!hackable){
             hp -= damage;
-            hackable = false;
         }
 
         if (hp <= 0) {
@@ -79,11 +83,20 @@ public class Enemy : MonoBehaviour {
         } else {
             shieldPointer = -1;
         }
+        hackable = false;
         enemyHealthbar.OnGetHit();
+    }
+
+    public void StartHack() {
+        if (!TimeManager.isPause && player != null) {
+                player.GetComponent<HackController>().StartEnemyHack(this, hackSize, hackTime);
+
+        }
     }
 
     public void EndHack() {
         hackable = false;
+        hc.RemoveFromHackableList(this.gameObject);
         getHit(0);
     }
 
@@ -92,11 +105,17 @@ public class Enemy : MonoBehaviour {
             foreach(Transform transform in pathPoints) {
                 transform.SetParent(GameObject.Find("Path").transform);
             }
+            while (pathPoints.Length != 0) {
+                yield return StartCoroutine(MoveToNextPoint(pathPointer));
+            }
+        } else {
+            while (true) {
+                CheckSeePlayer();
+                yield return null;
+            }
         }
         
-        while (pathPoints.Length != 0) {
-            yield return StartCoroutine(MoveToNextPoint(pathPointer));
-        }
+        
     }
 
     IEnumerator MoveToNextPoint(int pointer) {

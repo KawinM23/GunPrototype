@@ -13,12 +13,7 @@ public class Enemy1 : Enemy {
     }
 
     private void Update() {
-        if (!TimeManager.isPause && player != null) {
-            if (hackable && Input.GetKeyDown(KeyCode.Mouse1)) {
-                player.GetComponent<HackController>().StartEnemyHack(this, 4, 0.15f);
-            }
-            CheckSeePlayer();
-        }
+        
     }
 
 
