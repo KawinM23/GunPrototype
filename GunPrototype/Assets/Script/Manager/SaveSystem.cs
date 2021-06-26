@@ -66,6 +66,9 @@ public class SaveSystem : MonoBehaviour {
             foreach (string es in loadedStrings) {
                 dataList.Add(JsonUtility.FromJson<LevelData>(es));
             }
+        } else {
+            ResetSave();
+            Load();
         }
 
     }

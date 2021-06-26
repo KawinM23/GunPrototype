@@ -29,7 +29,5 @@ public class PlayerController : MonoBehaviour
         hp -= damage;
     }
 
-    public float healthPercentage() {
-        return ((float)hp / (float)maxHp);
-    }
+    public float healthPercentage() => hp / (float)maxHp;
 }

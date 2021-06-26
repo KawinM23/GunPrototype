@@ -4837,9 +4837,16 @@ MonoBehaviour:
     type: 3}
   gunPrefab: {fileID: 8296535279564188297, guid: aea217ade60bd70418b101d76746b78e,
     type: 3}
+  gunType: 0
   shootable: 0
-  fireRate: 0.2
   firingPoint: {fileID: 7032924514007548545}
+  reloadTime: 0
+  akMag: 24
+  smgMag: 30
+  sniperMag: 6
+  akReloadTime: 1.75
+  smgReloadTime: 1
+  sniperReloadTime: 2
   offset: 0
 --- !u!114 &1128196404006224982
 MonoBehaviour:
@@ -4853,6 +4860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82516c70cde5f74f997d291ed3f5536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  markPrefab: {fileID: 6241274535554769631, guid: 662ad4665600d404f9d8266ed0a32f03,
+    type: 3}
   isHacking: 0
   hackCooldown: 3
   fadeOutDuration: 0.25

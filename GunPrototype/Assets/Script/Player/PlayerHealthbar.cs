@@ -15,16 +15,18 @@ public class PlayerHealthbar : MonoBehaviour
         pc = GameObject.Find("Player").GetComponent<PlayerController>();
         Healthbar = GetComponent<Image>();
         phb = GameObject.Find("PlayerHealthbar");
+
+        if (LevelManager.InLevel()) {
+            phb.SetActive(true);
+        } else if (!LevelManager.InLevel()) {
+            phb.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(LevelManager.InLevel() && !phb.activeSelf) {
-            phb.SetActive(true);
-        }else if (!LevelManager.InLevel() && phb.activeSelf) {
-            phb.SetActive(false);
-        }
+        
         Healthbar.fillAmount = pc.healthPercentage();
     }
 }

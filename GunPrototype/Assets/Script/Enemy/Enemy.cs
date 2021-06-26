@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour {
         if (shieldPointer != -1 && hp - damage <= shield[shieldPointer] && !hackable) {
             hp = shield[shieldPointer];
             hackable = true;
-            hc.AddToHackableList(this.gameObject);
+            hc.StartCoroutine(hc.AddToHackableList(this.gameObject));
         } else if(!hackable){
             hp -= damage;
         }

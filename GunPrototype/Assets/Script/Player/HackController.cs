@@ -8,6 +8,7 @@ public class HackController : MonoBehaviour {
     private CanvasGroup hackGroup;
     private HackInterface hi;
     private HackTimer ht;
+    [SerializeField] private GameObject markPrefab;
 
     public bool isHacking = false;
 
@@ -30,6 +31,8 @@ public class HackController : MonoBehaviour {
 
     // Start is called before the first frame update
     private void Start() {
+        hackableList = new List<GameObject>();
+
         mc = GameObject.Find("Main Camera").GetComponent<Camera>();
         tm = GameObject.Find("Manager").GetComponent<TimeManager>();
         hackGroup = GameObject.Find("HackGroup").GetComponent<CanvasGroup>();
@@ -40,7 +43,6 @@ public class HackController : MonoBehaviour {
         ht.HideTimer();
 
         isHacking = false;
-        hackableList = new List<GameObject>();
         hackPos = 0;
         hackTime = 0;
         hackDuration = 0;
@@ -75,7 +77,6 @@ public class HackController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Mouse1) && hackableList.Count != 0 && cooldownTracker == 0) {
             Vector2 mousePosition = mc.ScreenToWorldPoint(Input.mousePosition);
             GameObject nearestObject = null;
-            Debug.Log(hackableList);
             foreach (GameObject go in hackableList) {
                 if ((nearestObject == null || Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, nearestObject.transform.position)) && InScreen(go)) {
                     nearestObject = go;
@@ -88,8 +89,6 @@ public class HackController : MonoBehaviour {
                     nearestObject.GetComponent<Door>().StartHack();
                 }
             }
-            
-
         }
     }
 
@@ -136,20 +135,17 @@ public class HackController : MonoBehaviour {
 
     public void HackSuccess() {
         if (isHacking) {
-            Debug.Log("Success");
-            EndHack();
             if (targetEnemy != null) {
                 targetEnemy.BreakShield();
             } else if (targetDoor != null) {
                 targetDoor.OpenDoor();
             }
+            EndHack();
         }
     }
 
     public void HackFailed() {
         if (isHacking) {
-            Debug.Log("Fail");
-            cooldownTracker = hackCooldown;
             EndHack();
         }
     }
@@ -160,6 +156,7 @@ public class HackController : MonoBehaviour {
             isHacking = false;
             hackPos = 0;
             hackTime++;
+            cooldownTracker = hackCooldown;
             if (targetEnemy != null) {
                 targetEnemy.EndHack();
             } else if (targetDoor != null) {
@@ -210,16 +207,24 @@ public class HackController : MonoBehaviour {
         return (hackDuration - hackTimePass) / hackDuration;
     }
 
-    public void AddToHackableList(GameObject go) {
-        if (!hackableList.Contains(go)) {
+    public IEnumerator AddToHackableList(GameObject go) {
+        while (hackableList == null) {
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+        if (hackableList != null && !hackableList.Contains(go)) {
+            GameObject hackMark = Instantiate(markPrefab);
             hackableList.Add(go);
-            return;
+            hackMark.transform.SetParent(go.transform);
+            hackMark.transform.localPosition = new Vector3(0, 0, 0);
+
+            yield return null;
         }
     }
 
     public void RemoveFromHackableList(GameObject go) {
         if (hackableList.Contains(go)) {
             hackableList.Remove(go);
+            Destroy(go.transform.Find("HackMarkPrefab(Clone)").gameObject);
             return;
         }
     }

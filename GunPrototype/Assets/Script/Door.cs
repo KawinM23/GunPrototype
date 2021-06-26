@@ -15,7 +15,7 @@ public class Door : MonoBehaviour
         player = GameObject.Find("Player");
         hc = player.GetComponent<HackController>();
 
-        hc.AddToHackableList(this.gameObject);
+        hc.StartCoroutine(hc.AddToHackableList(this.gameObject));
     }
 
     private void Update() {
@@ -29,7 +29,6 @@ public class Door : MonoBehaviour
     }
 
     public void EndHack() {
-
     }
 
     public void OpenDoor() {
