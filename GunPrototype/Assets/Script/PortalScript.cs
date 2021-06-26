@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PortalScript : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem ps;
+
     private bool onPortal;
 
     public int level;
@@ -17,12 +19,14 @@ public class PortalScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision != null && collision.gameObject.CompareTag("Player")) {
             onPortal = true;
+            ps.Play();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision != null && collision.gameObject.CompareTag("Player")) {
             onPortal = false;
+            ps.Stop();
         }
     }
 }

@@ -72,27 +72,34 @@ public class HackController : MonoBehaviour {
     }
 
     private void PressHack() {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && hackableList.Count != 0) {
+        if (Input.GetKeyDown(KeyCode.Mouse1) && hackableList.Count != 0 && cooldownTracker == 0) {
             Vector2 mousePosition = mc.ScreenToWorldPoint(Input.mousePosition);
             GameObject nearestObject = null;
             Debug.Log(hackableList);
-            foreach(GameObject go in hackableList) {
-                if(nearestObject == null || Vector2.Distance(mousePosition,go.transform.position) < Vector2.Distance(mousePosition, nearestObject.transform.position)){
+            foreach (GameObject go in hackableList) {
+                if ((nearestObject == null || Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, nearestObject.transform.position)) && InScreen(go)) {
                     nearestObject = go;
                 }
             }
-            Debug.Log(nearestObject);
-            if (nearestObject.GetComponent<Enemy>()!=null) {
-                nearestObject.GetComponent<Enemy>().StartHack();
-            }else if (nearestObject.GetComponent<Door>() != null) {
-                nearestObject.GetComponent<Door>().StartHack();
+            if (nearestObject != null) {
+                if (nearestObject.GetComponent<Enemy>() != null) {
+                    nearestObject.GetComponent<Enemy>().StartHack();
+                } else if (nearestObject.GetComponent<Door>() != null) {
+                    nearestObject.GetComponent<Door>().StartHack();
+                }
             }
+            
 
         }
     }
 
+    private bool InScreen(GameObject go) {
+        Vector3 screenPoint = mc.WorldToViewportPoint(go.transform.position);
+        return screenPoint.z > -10 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+    }
+
     public void StartEnemyHack(Enemy enemy, int size, float duration) {
-        if (!isHacking && cooldownTracker == 0) {
+        if (!isHacking) {
             isHacking = true;
             targetEnemy = enemy;
             targetDoor = null;
@@ -110,7 +117,7 @@ public class HackController : MonoBehaviour {
     }
 
     public void StartDoorHack(Door door, int size, float duration) {
-        if (!isHacking && cooldownTracker == 0) {
+        if (!isHacking) {
             isHacking = true;
             targetEnemy = null;
             targetDoor = door;
@@ -155,7 +162,7 @@ public class HackController : MonoBehaviour {
             hackTime++;
             if (targetEnemy != null) {
                 targetEnemy.EndHack();
-            }else if (targetDoor!=null) {
+            } else if (targetDoor != null) {
                 targetDoor.EndHack();
             }
 

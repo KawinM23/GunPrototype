@@ -27,6 +27,7 @@ public class LevelManager : MonoBehaviour {
             playingLevel = levelNumber;
         }
         retryCircle.enabled = false;
+        
     }
 
     private void Update() {
@@ -72,20 +73,19 @@ public class LevelManager : MonoBehaviour {
 
     }
     public void PressRetry() {
-        if(tm.timePass == 0) {
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Tab)) {
-            retryCircle.enabled = true;
-        } else if (Input.GetKey(KeyCode.Tab)) {
-            retryTime += Time.unscaledDeltaTime;
-            retryCircle.fillAmount = retryTime / retryTimeRequired;
-            if (retryTime >= retryTimeRequired) {
-                StaticRetry();
+        if (tm.timePass != 0) {
+            if (Input.GetKeyDown(KeyCode.Tab)) {
+                retryCircle.enabled = true;
+            } else if (Input.GetKey(KeyCode.Tab)) {
+                retryTime += Time.unscaledDeltaTime;
+                retryCircle.fillAmount = retryTime / retryTimeRequired;
+                if (retryTime >= retryTimeRequired) {
+                    StaticRetry();
+                }
+            } else if (Input.GetKeyUp(KeyCode.Tab)) {
+                retryCircle.enabled = false;
+                retryTime = 0;
             }
-        } else if (Input.GetKeyUp(KeyCode.Tab)) {
-            retryCircle.enabled = false;
-            retryTime = 0;
         }
     }
 

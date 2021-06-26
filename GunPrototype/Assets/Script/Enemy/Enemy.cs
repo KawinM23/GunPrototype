@@ -43,6 +43,7 @@ public class Enemy : MonoBehaviour {
         StartCoroutine(FollowPath());
     }
 
+
     public float HealthPercentage() {
         return ((float)hp / (float)maxHp);
     }
@@ -58,6 +59,7 @@ public class Enemy : MonoBehaviour {
         }
 
         if (hp <= 0) {
+            hc.RemoveFromHackableList(this.gameObject);
             Destroy(gameObject);
         }
         enemyHealthbar.OnGetHit();
@@ -74,16 +76,15 @@ public class Enemy : MonoBehaviour {
     }
 
     public void BreakShield() {
+        EndHack();
         shieldPointer--;
         if (shieldPointer > 0) {
             while (!shieldPosition[shieldPointer]) {
                 shieldPointer--;
             }
-            EndHack();
         } else {
             shieldPointer = -1;
         }
-        hackable = false;
         enemyHealthbar.OnGetHit();
     }
 
@@ -97,7 +98,6 @@ public class Enemy : MonoBehaviour {
     public void EndHack() {
         hackable = false;
         hc.RemoveFromHackableList(this.gameObject);
-        getHit(0);
     }
 
     IEnumerator FollowPath() {
@@ -111,6 +111,7 @@ public class Enemy : MonoBehaviour {
         } else {
             while (true) {
                 CheckSeePlayer();
+                
                 yield return null;
             }
         }
@@ -121,8 +122,10 @@ public class Enemy : MonoBehaviour {
     IEnumerator MoveToNextPoint(int pointer) {
         Vector2 destination = new Vector2(pathPoints[pointer].position.x, transform.position.y);
         while(transform.position.x != destination.x) {
-            if (!CheckSeePlayer()) {
+            if (!SeePlayer()) {
                 transform.position = Vector2.MoveTowards(transform.position, destination, speed*Time.deltaTime);
+            } else {
+                ShootPlayer();
             }
             yield return null;
         }
@@ -133,7 +136,7 @@ public class Enemy : MonoBehaviour {
         yield return new WaitForSeconds(waitDuration);
     }
 
-    public bool CheckSeePlayer() {
+    public bool SeePlayer() {
 
         Vector2 endPoint = transform.position + (player.transform.position - transform.position).normalized * seeDis;
 
@@ -143,7 +146,6 @@ public class Enemy : MonoBehaviour {
 
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Player")) {
             Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.green);
-            ShootPlayer();
             return true;
         }
         return false;
@@ -153,7 +155,13 @@ public class Enemy : MonoBehaviour {
             nextShootTime = Time.time + shootCooldown;
             GameObject bulletClone = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(Vector3.up));
             bulletClone.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * 20;
-            Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), bulletClone.transform.GetComponent<Collider2D>());
+            //Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), bulletClone.transform.GetComponent<Collider2D>());
+        }
+    }
+
+    public void CheckSeePlayer() {
+        if (SeePlayer()) {
+            ShootPlayer();
         }
     }
 }

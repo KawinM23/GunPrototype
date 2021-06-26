@@ -34,7 +34,7 @@ public class HackInterface : MonoBehaviour
     }
 
     public void ShowHackList(KeyCode[] keyCodes) {
-        size = Mathf.Clamp((Screen.height / 5), 80, 200);
+        size = Mathf.Clamp((Screen.height / 5), 80, 100);
         for (int i = 0; i < keyCodes.Length; i++) {
             GameObject tp = Instantiate(template, hi.transform);
             tp.GetComponent<RectTransform>().sizeDelta = new Vector2(size,size);

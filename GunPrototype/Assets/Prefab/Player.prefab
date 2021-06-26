@@ -4854,7 +4854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHacking: 0
-  hackCooldown: 0
+  hackCooldown: 3
   fadeOutDuration: 0.25
 --- !u!114 &3612458128224012353
 MonoBehaviour:
