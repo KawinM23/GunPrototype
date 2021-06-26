@@ -52,7 +52,7 @@ public class TimeManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && LevelManager.InLevel()) {
             TogglePause();
         }
-        if(!start && Input.anyKeyDown) {
+        if(!start && Input.anyKeyDown && !Input.GetKey(KeyCode.Tab)) {
             start = true;
         }
     }
