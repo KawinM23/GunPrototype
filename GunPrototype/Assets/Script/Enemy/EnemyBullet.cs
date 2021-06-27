@@ -21,7 +21,7 @@ public class EnemyBullet : MonoBehaviour {
     }
 
     void TimeOut() {
-        GameObject.Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     //private void OnCollisionEnter2D(Collision2D collision) {
@@ -55,6 +55,10 @@ public class EnemyBullet : MonoBehaviour {
             Destroy(gameObject);
 
         }
+    }
+
+    public void SetBulletDamage(int bulletDamage) {
+        this.bulletDamage = bulletDamage;
     }
 
 

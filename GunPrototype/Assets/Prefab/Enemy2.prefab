@@ -384,7 +384,9 @@ MonoBehaviour:
   speed: 5
   waitDuration: 2
   seeDis: 25
-  shootCooldown: 1
+  shootCooldown: 1.25
+  bulletDamage: 20
+  bulletSpeed: 15
   groundLayer:
     serializedVersion: 2
     m_Bits: 4352

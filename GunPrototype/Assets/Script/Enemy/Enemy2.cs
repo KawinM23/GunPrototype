@@ -11,8 +11,7 @@ public class Enemy2 : Enemy
         shieldPosition = new bool[8] { true, false, false, false, true, false, false, false };
         shieldPointer = 4;
 
-        shootCooldown = 1.5f;
-        
+        StartCoroutine(FollowPath());
     }
 
     private void Update() {

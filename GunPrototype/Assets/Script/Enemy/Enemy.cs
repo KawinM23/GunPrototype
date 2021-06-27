@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour {
     public int maxHp;
     protected int[] shield;
     protected bool[] shieldPosition;
-    public int shieldPointer;
+    [HideInInspector]public int shieldPointer;
 
     protected bool hackable;
     public int hackSize;
@@ -26,7 +26,8 @@ public class Enemy : MonoBehaviour {
     public float shootCooldown;
     protected float nextShootTime;
 
-    
+    public int bulletDamage;
+    public int bulletSpeed;
 
     public LayerMask groundLayer;
 
@@ -39,8 +40,6 @@ public class Enemy : MonoBehaviour {
         hp = maxHp;
         hackable = false;
         nextShootTime = Time.time + 2;
-
-        StartCoroutine(FollowPath());
     }
 
 
@@ -78,8 +77,9 @@ public class Enemy : MonoBehaviour {
     public void BreakShield() {
         EndHack();
         shieldPointer--;
+
         if (shieldPointer > 0) {
-            while (!shieldPosition[shieldPointer]) {
+            while (shieldPointer >= 0 && !shieldPosition[shieldPointer]) {
                 shieldPointer--;
             }
         } else {
@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour {
         hc.RemoveFromHackableList(this.gameObject);
     }
 
-    IEnumerator FollowPath() {
+    public IEnumerator FollowPath() {
         if(pathPoints.Length != 0) {
             foreach(Transform transform in pathPoints) {
                 transform.SetParent(GameObject.Find("Path").transform);
@@ -150,7 +150,9 @@ public class Enemy : MonoBehaviour {
         if (Time.time >= nextShootTime && bulletPrefab != null) {
             nextShootTime = Time.time + shootCooldown;
             GameObject bulletClone = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(Vector3.up));
-            bulletClone.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * 20;
+            bulletClone.GetComponent<EnemyBullet>().SetBulletDamage(bulletDamage);
+            bulletClone.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * bulletSpeed;
+            
             //Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), bulletClone.transform.GetComponent<Collider2D>());
         }
     }
