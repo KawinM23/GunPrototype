@@ -8,10 +8,12 @@ public class AmmoUI : MonoBehaviour
     private ShootController sc;
 
     [SerializeField] private Image image;
+    [SerializeField] private Text ammoText;
 
     public Color akColor;
     public Color smgColor;
     public Color sniperColor;
+    public Color white;
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +22,9 @@ public class AmmoUI : MonoBehaviour
 
         if (LevelManager.InLevel()) {
             image.enabled = true;
-        } else if (!LevelManager.InLevel()) {
+        } else {
             image.enabled = false;
+            ammoText.gameObject.SetActive(false);
         }
     }
 
@@ -30,10 +33,13 @@ public class AmmoUI : MonoBehaviour
     {
         if (sc.gunType == 0 && image.color != akColor) {
             image.color = akColor;
-        }else if (sc.gunType == 1 && image.color != smgColor) {
+            ammoText.color = akColor + white;
+        } else if (sc.gunType == 1 && image.color != smgColor) {
             image.color = smgColor;
-        }else if (sc.gunType == 2 && image.color != sniperColor) {
+            ammoText.color = smgColor + white;
+        } else if (sc.gunType == 2 && image.color != sniperColor) {
             image.color = sniperColor;
+            ammoText.color = sniperColor + white;
         }
         if (sc.reloadTime == 0){
             image.fillClockwise = false;
@@ -42,6 +48,8 @@ public class AmmoUI : MonoBehaviour
             image.fillClockwise = true;
             image.fillAmount = sc.ReloadPercentage();
         }
+        ammoText.text = sc.GetAmmoText();
+        
         
     }
 }

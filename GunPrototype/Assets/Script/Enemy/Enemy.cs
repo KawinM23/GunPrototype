@@ -122,11 +122,7 @@ public class Enemy : MonoBehaviour {
     IEnumerator MoveToNextPoint(int pointer) {
         Vector2 destination = new Vector2(pathPoints[pointer].position.x, transform.position.y);
         while(transform.position.x != destination.x) {
-            if (!SeePlayer()) {
-                transform.position = Vector2.MoveTowards(transform.position, destination, speed*Time.deltaTime);
-            } else {
-                ShootPlayer();
-            }
+            transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
             yield return null;
         }
         pathPointer++;

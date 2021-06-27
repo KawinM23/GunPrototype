@@ -81,6 +81,7 @@ public class ShootController : MonoBehaviour {
         if (Input.GetMouseButton(0) && timeUntilFire < Time.time && Ammo() >= 0 && reloadTime == 0) {
             if (Ammo() == 0) {
                 Reload();
+                return;
             }
             GameObject bulletClone;
             switch (gunType) {
@@ -185,6 +186,19 @@ public class ShootController : MonoBehaviour {
                 return sniperBullet;
             default:
                 return 0;
+        }
+    }
+
+    public string GetAmmoText() {
+        switch (gunType) {
+            case 0:
+                return akBullet+" / "+akMag;
+            case 1:
+                return smgBullet+" / "+smgMag;
+            case 2:
+                return sniperBullet + " /  "+sniperMag;
+            default:
+                return "";
         }
     }
 

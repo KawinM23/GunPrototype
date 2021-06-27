@@ -207,6 +207,10 @@ public class HackController : MonoBehaviour {
         return (hackDuration - hackTimePass) / hackDuration;
     }
 
+    public float GetCooldownPercentage() {
+        return 1 - (cooldownTracker / hackCooldown);
+    }
+
     public IEnumerator AddToHackableList(GameObject go) {
         while (hackableList == null) {
             yield return new WaitForSecondsRealtime(0.1f);

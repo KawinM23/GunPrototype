@@ -12,5 +12,11 @@ public class Enemy1 : Enemy {
         shieldPointer = 0;
     }
 
+    private void Update() {
+        if (SeePlayer()) {
+            ShootPlayer();
+        }
+    }
+
 
 }

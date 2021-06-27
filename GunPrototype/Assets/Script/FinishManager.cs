@@ -21,22 +21,32 @@ public class FinishManager : MonoBehaviour
 
     public float waitTime;
 
+
+    [SerializeField] private GameObject star1;
+    [SerializeField] private GameObject star2;
+    [SerializeField] private GameObject star3;
     [SerializeField] private GameObject border1;
     [SerializeField] private GameObject border2;
     [SerializeField] private GameObject border3;
+    private Animator border1Animator;
+    private Animator border2Animator;
+    private Animator border3Animator;
+
+    public Color star1Color;
+    public Color star2Color;
+    public Color star3Color;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        border1.SetActive(false);
-        border2.SetActive(false);
-        border3.SetActive(false);
         backable = false;
         backText.enabled = false;
+
+            Debug.Log(timePass + "/" + timeLimited);
+            Debug.Log(allEnemiesDefeated);
+            inTime = timePass <= timeLimited;
         
-        Debug.Log(timePass + "/" + timeLimited);
-        Debug.Log(allEnemiesDefeated);
-        inTime = timePass <= timeLimited;
 
         SaveFinish();
         StartCoroutine(PlayStars());
@@ -59,7 +69,7 @@ public class FinishManager : MonoBehaviour
     }
 
     private void SaveFinish() {
-        if (ss.dataList != null) {
+        if (ss.dataList != null && levelName != null) {
             foreach (LevelData ld in ss.dataList) {
                 if (levelName.Equals(ld.levelName)) {
                     ld.completed = true;
@@ -81,7 +91,10 @@ public class FinishManager : MonoBehaviour
     }
 
     IEnumerator PlayStars() {
-        yield return new WaitForSeconds(1);
+        border1Animator = border1.GetComponent<Animator>();
+        border2Animator = border2.GetComponent<Animator>();
+        border3Animator = border3.GetComponent<Animator>();
+        yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(PlayStar(1));
         yield return StartCoroutine(PlayStar(2));
         yield return StartCoroutine(PlayStar(3));
@@ -92,13 +105,38 @@ public class FinishManager : MonoBehaviour
     IEnumerator PlayStar(int star) {
         switch (star) {
             case 1:
+                border1Animator.Play("Border1Animation");
+                border1Animator.SetBool("Play", true);
+                yield return new WaitForSeconds(1f);
+                star1.GetComponent<SpriteRenderer>().color = star1Color;
+                yield return new WaitForSeconds(0.5f);
                 break;
             case 2:
-                
-
+                border2Animator.Play("Border2Animation");
+                yield return new WaitForSeconds(1f);
+                border2Animator.SetBool("Play", false);
+                if (inTime) {
+                    border2Animator.SetBool("inTime", true);
+                    star2.GetComponent<SpriteRenderer>().color = star2Color;
+                    yield return new WaitForSeconds(0.75f);
+                } else {
+                    border2Animator.SetBool("inTime", false);
+                    yield return new WaitForSeconds(0.75f);
+                }
                 break;
             case 3:
-                
+
+                border3Animator.Play("Border3Animation");
+                yield return new WaitForSeconds(1f);
+                border3Animator.SetBool("Play", false);
+                if (allEnemiesDefeated) {
+                    border3Animator.SetBool("allEnemyDefeated", true);
+                    star3.GetComponent<SpriteRenderer>().color = star3Color;
+                    yield return new WaitForSeconds(0.5f);
+                } else {
+                    border3Animator.SetBool("allEnemyDefeated", false);
+                    yield return new WaitForSeconds(0.75f);
+                }
                 break;
         }
         yield return null;

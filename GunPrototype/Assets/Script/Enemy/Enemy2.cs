@@ -15,4 +15,9 @@ public class Enemy2 : Enemy
         
     }
 
+    private void Update() {
+        if (SeePlayer()) {
+            ShootPlayer();
+        }
+    }
 }

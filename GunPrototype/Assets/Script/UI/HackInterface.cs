@@ -21,6 +21,8 @@ public class HackInterface : MonoBehaviour
     [SerializeField] private GameObject rightParticle;
 
     float size;
+    List<GameObject> hackObjects;
+    public Color grey;
 
     private void Awake() {
         hi = this.gameObject;
@@ -34,10 +36,12 @@ public class HackInterface : MonoBehaviour
     }
 
     public void ShowHackList(KeyCode[] keyCodes) {
+        hackObjects = new List<GameObject>();
         size = Mathf.Clamp((Screen.height / 5), 80, 100);
         for (int i = 0; i < keyCodes.Length; i++) {
             GameObject tp = Instantiate(template, hi.transform);
             tp.GetComponent<RectTransform>().sizeDelta = new Vector2(size,size);
+            hackObjects.Add(tp);
         }
 
         for (int i = 0; i < keyCodes.Length; i++) {
@@ -67,10 +71,10 @@ public class HackInterface : MonoBehaviour
     }
 
     public void Press(int index) {
+        hackObjects[index].GetComponent<Image>().color = grey;
         GameObject newParticle = Instantiate(GetParticle(index), canvasTransform);
         newParticle.GetComponent<RectTransform>().position = hi.transform.GetChild(index).gameObject.GetComponent<RectTransform>().position;
         newParticle.GetComponent<ParticleSystem>().Play();
-        Destroy(newParticle, 1f);
     }
 
     public GameObject GetParticle(int index) {

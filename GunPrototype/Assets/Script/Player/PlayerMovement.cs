@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private GameObject jp;
 
     public float movementSpeed;
-
+    
     public float jumpForce = 10f;
     public bool isJumping;
     public byte jumpCount = 0;
