@@ -716,6 +716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1397211093}
   - component: {fileID: 1397211094}
+  - component: {fileID: 1397211095}
   m_Layer: 0
   m_Name: ThinDiamond1
   m_TagString: Untagged
@@ -787,6 +788,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1397211095
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397211092}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8331ef297d1b5704fa1f9cd1b6ceb9ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1639365055
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,9 +952,6 @@ MonoBehaviour:
   border1: {fileID: 1397211092}
   border2: {fileID: 892239018}
   border3: {fileID: 1739790266}
-  star1Color: {r: 0.5058824, g: 0.9333334, b: 1, a: 1}
-  star2Color: {r: 1, g: 0.9176471, b: 0.49411768, a: 1}
-  star3Color: {r: 0.5254902, g: 1, b: 0.5058824, a: 1}
 --- !u!1 &1719669369
 GameObject:
   m_ObjectHideFlags: 0
