@@ -10,6 +10,7 @@ using UnityEditor;
 public class SaveSystem : MonoBehaviour {
 
     public List<LevelData> dataList;
+    public int levelNumber;
     private string s;
     private string[] seperator = new string[] { "___" };
     private string[] loadedStrings;
@@ -62,7 +63,7 @@ public class SaveSystem : MonoBehaviour {
         if (File.Exists(Application.dataPath + "/save.txt")) {
             string loadString = File.ReadAllText(Application.dataPath + "/save.txt");
             loadedStrings = loadString.Split(seperator, StringSplitOptions.RemoveEmptyEntries);
-
+            levelNumber = loadedStrings.Length;
             foreach (string es in loadedStrings) {
                 dataList.Add(JsonUtility.FromJson<LevelData>(es));
             }

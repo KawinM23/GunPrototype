@@ -15,14 +15,17 @@ public class ShootController : MonoBehaviour {
     [SerializeField] private GameObject gunPrefab;
 
     [HideInInspector] public int gunType; //0 AK, 1 SMG, 2 Sniper
+    public float offset;
     public bool shootable;
+
 
     private float fireRate = 0.2f;
     public Transform firingPoint;
     private float timeUntilFire;
 
-    [HideInInspector]public float reloadTime;
+    [HideInInspector] public float reloadTime;
 
+    [Header("Gun Stat")]
     private int akBullet;
     private int smgBullet;
     private int sniperBullet;
@@ -37,7 +40,18 @@ public class ShootController : MonoBehaviour {
 
     private Vector2 lookDirection;
     private float lookAngle;
-    public float offset;
+    
+
+    [Header("Sounds")]
+    [SerializeField] AudioSource shootSource;
+    [SerializeField] AudioClip akShoot;
+    [SerializeField] AudioClip smgShoot;
+    [SerializeField] AudioClip sniperShoot;
+    [SerializeField] AudioClip akReload;
+    [SerializeField] AudioClip smgReload;
+    [SerializeField] AudioClip sniperReload;
+
+
 
     private void Start() {
         pm = gameObject.GetComponent<PlayerMovement>();
@@ -88,18 +102,21 @@ public class ShootController : MonoBehaviour {
                 case 0:
                     akBullet--;
                     bulletClone = Instantiate(bulletPrefab);
-                    timeUntilFire = Time.time + fireRate;
+                    timeUntilFire = Time.time + 0.2f;
+                    shootSource.PlayOneShot(akShoot, 0.5f);
                     break;
                 case 1:
                     smgBullet--;
                     bulletClone = Instantiate(smgBulletPrefab);
                     timeUntilFire = Time.time + 0.1f;
+                    shootSource.PlayOneShot(smgShoot, 0.5f);
                     break;
 
                 case 2:
                     sniperBullet--;
                     bulletClone = Instantiate(sniperBulletPrefab);
-                    timeUntilFire = Time.time + 0.8f;
+                    timeUntilFire = Time.time + 1f;
+                    shootSource.PlayOneShot(sniperShoot, 0.6f);
                     break;
 
                 default:
@@ -129,20 +146,25 @@ public class ShootController : MonoBehaviour {
     }
 
     private void Reload() {
-        switch (gunType) {
-            case 0:
-                reloadTime = akReloadTime;
-                break;
-            case 1:
-                reloadTime = smgReloadTime;
-                break;
-            case 2:
-                reloadTime = sniperReloadTime;
-                break;
-            default:
-                break;
+        if (reloadTime == 0) {
+            switch (gunType) {
+                case 0:
+                    reloadTime = akReloadTime;
+                    shootSource.PlayOneShot(akReload, 1);
+                    break;
+                case 1:
+                    reloadTime = smgReloadTime;
+                    shootSource.PlayOneShot(smgReload, 1);
+                    break;
+                case 2:
+                    reloadTime = sniperReloadTime;
+                    shootSource.PlayOneShot(sniperReload, 1);
+                    break;
+                default:
+                    break;
+            }
+            StartCoroutine(Reloading());
         }
-        StartCoroutine(Reloading());
     }
 
     IEnumerator Reloading() {

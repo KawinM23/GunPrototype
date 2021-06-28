@@ -5,11 +5,11 @@ using UnityEngine;
 public class PortalScript : MonoBehaviour
 {
     [SerializeField] private ParticleSystem ps;
-    [SerializeField] private SaveSystem ss;
+    private SaveSystem ss;
 
-    [SerializeField] private SpriteRenderer star1Sprite;
-    [SerializeField] private SpriteRenderer star2Sprite;
-    [SerializeField] private SpriteRenderer star3Sprite;
+    private SpriteRenderer star1Sprite;
+    private SpriteRenderer star2Sprite;
+    private SpriteRenderer star3Sprite;
 
     public Color star1Color;
     public Color star2Color;
@@ -22,30 +22,47 @@ public class PortalScript : MonoBehaviour
     public int level;
 
     private void Start() {
-        foreach(LevelData ld in ss.dataList) {
-            if (ld.levelName.Equals("Level" + level)) {
-                if (!ld.completed) {
-                    star1Sprite.enabled = false;
-                    star2Sprite.enabled = false;
-                    star3Sprite.enabled = false;
-                }
-                if (ld.stars[0]) {
-                    star1Sprite.color = star1Color;
-                }
-                if (ld.stars[1]) {
-                    star2Sprite.color = star2Color;
-                }
-                if (ld.stars[2]) {
-                    star3Sprite.color = star3Color;
-                }
-            }
-        }
+        StartCoroutine(LoadData());
+        
     }
 
     private void Update() {
         if (onPortal && Input.GetKeyDown(KeyCode.Mouse1)) {
             LevelManager.LoadLevel(level);
         }
+    }
+
+    IEnumerator LoadData() {
+        if (level != -1) {
+            ss = GameObject.Find("SaveSystem").GetComponent<SaveSystem>();
+            yield return new WaitUntil(() => ss.dataList.Count == ss.levelNumber);
+        
+            star1Sprite = transform.Find("Star1").GetComponent<SpriteRenderer>();
+            star2Sprite = transform.Find("Star2").GetComponent<SpriteRenderer>();
+            star3Sprite = transform.Find("Star3").GetComponent<SpriteRenderer>();
+
+            foreach (LevelData ld in ss.dataList) {
+                if (ld.levelName.Equals("Level" + level)) {
+                    if (!ld.completed) {
+                        star1Sprite.enabled = false;
+                        star2Sprite.enabled = false;
+                        star3Sprite.enabled = false;
+                    } else {
+                        if (ld.stars[0]) {
+                            star1Sprite.color = star1Color;
+                        }
+                        if (ld.stars[1]) {
+                            star2Sprite.color = star2Color;
+                        }
+                        if (ld.stars[2]) {
+                            star3Sprite.color = star3Color;
+                        }
+                    }
+                }
+            }
+        }
+        yield return null;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

@@ -3,27 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
+
+    private TimeManager tm;
+    private SpriteRenderer sr;
+    [SerializeField] private ParticleSystem diePs;
     // Start is called before the first frame update
 
     static int hp;
     static int maxHp = 100;
+    private bool die;
+
 
     void Start()
     {
+        tm = GameObject.Find("Manager").GetComponent<TimeManager>();
+        sr = GetComponent<SpriteRenderer>();
         hp = maxHp;
+        die = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (hp <= 0) {
-            LevelManager.StaticRetry();
+        if (hp <= 0 && !die) {
+            StartCoroutine(Die());
         }
     }
 
+    public void SetFullHealth() {
+        hp = maxHp;
+    }
 
+    IEnumerator Die() {
+        die = true;
+        sr.enabled = false;
+        gameObject.GetComponent<PlayerMovement>().Die();
+        diePs.Play();
+        yield return StartCoroutine(tm.DoSlowmotionDie()); ;
+        LevelManager.StaticRetry();
+    }
 
     public static void getHit(int damage) {
         hp -= damage;

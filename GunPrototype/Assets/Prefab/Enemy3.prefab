@@ -142,7 +142,7 @@ MonoBehaviour:
   seeDis: 80
   shootCooldown: 2
   bulletDamage: 25
-  bulletSpeed: 40
+  bulletSpeed: 45
   groundLayer:
     serializedVersion: 2
     m_Bits: 4352

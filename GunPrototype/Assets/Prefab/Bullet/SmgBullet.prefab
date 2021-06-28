@@ -46,10 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33e075daaf9ec54aa3d26e6fd9b3826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 30
-  bulletDamage: 5
-  lifeTime: 10
   rb: {fileID: 2623309499646584320}
+  bulletSpeed: 32
+  bulletDamage: 5
 --- !u!212 &2623309499646584335
 SpriteRenderer:
   m_ObjectHideFlags: 0

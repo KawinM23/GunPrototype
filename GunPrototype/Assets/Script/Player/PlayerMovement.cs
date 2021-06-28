@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour {
     private int groundLayerMask;
 
     [HideInInspector] public bool isFacingRight;
+    [HideInInspector] public bool startingMoving;
+    [HideInInspector] public bool die;
 
     private float mx;
 
@@ -30,10 +32,11 @@ public class PlayerMovement : MonoBehaviour {
         groundLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Enemy");
 
         isFacingRight = true;
+        die = false;
     }
 
     public void Update() {
-        if (!TimeManager.isPause) {
+        if (!TimeManager.isPause && !die) {
             mx = Input.GetAxisRaw("Horizontal");
 
             if (mx > 0f) {
@@ -42,12 +45,11 @@ public class PlayerMovement : MonoBehaviour {
                 isFacingRight = false;
             }
 
-            Jump();
-            JumpDown();
-
-            if (Input.GetKeyDown(KeyCode.F)) {
-                //CM.GetComponent<CinemachineVirtualCamera>().m_Follow = GameObject.Find("Enemy1").transform;
+            if (startingMoving) { 
+                Jump();
+                JumpDown();
             }
+            CheckStartMoving();
         }
     }
 
@@ -87,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void JumpDown() {
-        if (Input.GetKeyDown(KeyCode.S)) {
+        if (Input.GetKey(KeyCode.S)) {
             Collider2D platformCheck;
             Collider2D otherCheck;
             platformCheck = Physics2D.OverlapBox(feet.position, new Vector2(0.8f, 0.01f), 0f, 1 << LayerMask.NameToLayer("Platform"));
@@ -96,6 +98,13 @@ public class PlayerMovement : MonoBehaviour {
             if (platformCheck != null && otherCheck == null && !bc.isTrigger) {
                 bc.isTrigger = true;
             }
+        }
+    }
+
+    public void CheckStartMoving() {
+        if (!startingMoving && Input.anyKeyDown && !Input.GetKey(KeyCode.Tab) && !Input.GetKey(KeyCode.Escape)) {
+            startingMoving = true;
+            GameObject.Find("Manager").GetComponent<TimeManager>().StartMoving();
         }
     }
 
@@ -134,6 +143,12 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 temp = transform.position;
         transform.position = Target.transform.position;
         Target.transform.position = temp;
+    }
+
+    public void Die() {
+        die = true;
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
     }
 
     private void OnTriggerExit2D(Collider2D collision) {

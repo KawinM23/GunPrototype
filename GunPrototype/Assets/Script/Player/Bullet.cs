@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour {
 
     public int bulletSpeed;
     public int bulletDamage;
-    private float lifeTime = 6f;
+    private float lifeTime = 3f;
 
     
 

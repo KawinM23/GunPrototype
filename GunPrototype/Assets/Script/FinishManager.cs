@@ -43,10 +43,7 @@ public class FinishManager : MonoBehaviour
         backable = false;
         backText.enabled = false;
 
-            Debug.Log(timePass + "/" + timeLimited);
-            Debug.Log(allEnemiesDefeated);
-            inTime = timePass <= timeLimited;
-        
+        inTime = timePass <= timeLimited;
 
         SaveFinish();
         StartCoroutine(PlayStars());

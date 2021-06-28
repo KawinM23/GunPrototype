@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class FinishLineScript : MonoBehaviour
@@ -8,10 +9,12 @@ public class FinishLineScript : MonoBehaviour
     private TimeManager tm;
     public float timeLimited;
 
-    [SerializeField] private List<GameObject> enemies;
+    private List<GameObject> enemies;
 
     private void Start() {
         tm = GameObject.Find("Manager").GetComponent<TimeManager>();
+        Text timeRequired = GameObject.Find("TimeRequired").GetComponent<Text>();
+        timeRequired.text = "/ " + timeLimited.ToString();
     }
 
 
