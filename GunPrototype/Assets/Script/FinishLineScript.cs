@@ -21,6 +21,7 @@ public class FinishLineScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision != null & collision.CompareTag("Player")) {
             if (SceneManager.GetActiveScene().name.Contains("Level")) {
+                enemies = new List<GameObject>();
                 foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy")) {
                     enemies.Add(go);
                 }

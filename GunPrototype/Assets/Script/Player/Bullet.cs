@@ -13,7 +13,6 @@ public class Bullet : MonoBehaviour {
 
 
     private void Start() {
-
         player = GameObject.Find("Player");
         rb.velocity = transform.right * bulletSpeed;
         Invoke("DestroyBullet", lifeTime);

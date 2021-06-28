@@ -9607,7 +9607,7 @@ MonoBehaviour:
   smgReloadTime: 1.2
   sniperReloadTime: 2
   shootSource: {fileID: 9182925247961959144}
-  akShoot: {fileID: 8300000, guid: 2da3e8d1459bb714380024bb5abc6140, type: 3}
+  akShoot: {fileID: 8300000, guid: f4740145c8f6fdc4aba98e267deb74df, type: 3}
   smgShoot: {fileID: 8300000, guid: 2da3e8d1459bb714380024bb5abc6140, type: 3}
   sniperShoot: {fileID: 8300000, guid: 9bdabfe1ffa985040832adbd6fd8f0ca, type: 3}
   akReload: {fileID: 8300000, guid: 16ad3f6f4c8563c4192b8599808ca1d0, type: 3}
