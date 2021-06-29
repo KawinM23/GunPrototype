@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    private GameObject PauseMenu;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject menuMenu;
     [SerializeField] private Text timer;
 
     private bool inLevel;
@@ -22,8 +23,7 @@ public class TimeManager : MonoBehaviour
     private bool die;
 
     private void Start() {
-        PauseMenu = GameObject.Find("PauseMenu");
-        PauseMenu.SetActive(false);
+        
         isPause = false;
         start = false;
         die = false;
@@ -31,6 +31,8 @@ public class TimeManager : MonoBehaviour
 
         timePass = 0;
         inLevel = LevelManager.InLevel();
+        pauseMenu.SetActive(false);
+        menuMenu.SetActive(false);
 
         if (!inLevel) {
             timer.gameObject.SetActive(false);
@@ -54,6 +56,9 @@ public class TimeManager : MonoBehaviour
         }
         if (!die &&Input.GetKeyDown(KeyCode.Escape) && LevelManager.InLevel()) {
             TogglePause();
+        }
+        if (!die && Input.GetKeyDown(KeyCode.Escape) && !LevelManager.InLevel()) {
+            ToggleMenu();
         }
 
     }
@@ -83,13 +88,13 @@ public class TimeManager : MonoBehaviour
         isPause = true;
         tempTimeScale = Time.timeScale;
         Time.timeScale = 0;
-        PauseMenu.SetActive(true);
+        pauseMenu.SetActive(true);
     }
 
     public void Resume() {
         isPause = false;
         Time.timeScale = tempTimeScale;
-        PauseMenu.SetActive(false);
+        pauseMenu.SetActive(false);
     }
 
     public void TogglePause() {
@@ -97,6 +102,14 @@ public class TimeManager : MonoBehaviour
             Resume();
         } else {
             Pause();
+        }
+    }
+
+    public void ToggleMenu() {
+        if (menuMenu.activeSelf) {
+            menuMenu.SetActive(false);
+        } else {
+            menuMenu.SetActive(true);
         }
     }
 

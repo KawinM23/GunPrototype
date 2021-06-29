@@ -5,7 +5,8 @@ public class PlayerMovement : MonoBehaviour {
     private HackController hc;
     private BoxCollider2D bc;
     private Transform manager;
-    [SerializeField] private GameObject jp;
+    [SerializeField] private GameObject jumpParticle;
+    [SerializeField] private SpriteRenderer sr;
 
     public float movementSpeed;
     
@@ -44,6 +45,7 @@ public class PlayerMovement : MonoBehaviour {
             } else if (mx < 0f) {
                 isFacingRight = false;
             }
+            sr.flipX = !isFacingRight;
 
             if (startingMoving) { 
                 Jump();
@@ -127,7 +129,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void PlayJumpParticle() {
-        GameObject newJp = Instantiate(jp, manager, true);
+        GameObject newJp = Instantiate(jumpParticle, manager, true);
         newJp.GetComponent<ParticleSystem>().Play();
     }
 

@@ -29,6 +29,15 @@ public class HackController : MonoBehaviour {
     private Enemy targetEnemy;
     private Door targetDoor;
 
+    [Header("Sounds")]
+    [SerializeField] AudioSource shootSource;
+    [SerializeField] AudioClip glassShattered;
+    [SerializeField] AudioClip upSound;
+    [SerializeField] AudioClip downSound;
+    [SerializeField] AudioClip leftSound;
+    [SerializeField] AudioClip rightSound;
+
+
     // Start is called before the first frame update
     private void Start() {
         hackableList = new List<GameObject>();
@@ -55,6 +64,7 @@ public class HackController : MonoBehaviour {
             hackTimePass += Time.deltaTime;
             if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {
                 hi.Press(hackPos);
+                PlayPressSound(hackPos);
                 hackPos++;
                 if (hackPos == hackList.Length) {
                     HackSuccess();
@@ -137,6 +147,7 @@ public class HackController : MonoBehaviour {
         if (isHacking) {
             if (targetEnemy != null) {
                 targetEnemy.BreakShield();
+                shootSource.PlayOneShot(glassShattered, 1f);
             } else if (targetDoor != null) {
                 targetDoor.OpenDoor();
             }
@@ -164,6 +175,26 @@ public class HackController : MonoBehaviour {
             }
 
             StartCoroutine(HideHackGroup());
+        }
+    }
+
+    void PlayPressSound(int hackPos) {
+
+        switch (GetKeyNumber(hackPos)) {
+            case 1:
+                shootSource.PlayOneShot(upSound, 1f);
+                break;
+            case 2:
+                shootSource.PlayOneShot(leftSound, 1f);
+                break;
+            case 3:
+                shootSource.PlayOneShot(downSound, 1f);
+                break;
+            case 4:
+                shootSource.PlayOneShot(rightSound, 1f);
+                break;
+            default:
+                break;
         }
     }
 

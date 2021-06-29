@@ -103,7 +103,7 @@ public class ShootController : MonoBehaviour {
                     akBullet--;
                     bulletClone = Instantiate(bulletPrefab);
                     timeUntilFire = Time.time + 0.2f;
-                    shootSource.PlayOneShot(akShoot, 0.5f);
+                    shootSource.PlayOneShot(akShoot, 0.6f);
                     break;
                 case 1:
                     smgBullet--;
@@ -150,7 +150,7 @@ public class ShootController : MonoBehaviour {
             switch (gunType) {
                 case 0:
                     reloadTime = akReloadTime;
-                    shootSource.PlayOneShot(akReload, 1);
+                    shootSource.PlayOneShot(akReload, 0.8f);
                     break;
                 case 1:
                     reloadTime = smgReloadTime;

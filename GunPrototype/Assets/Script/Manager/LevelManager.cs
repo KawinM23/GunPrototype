@@ -15,6 +15,8 @@ public class LevelManager : MonoBehaviour {
     private float retryTime;
     public float retryTimeRequired;
 
+    [SerializeField] AudioSource musicSource;
+
     private void Start() {
         player = GameObject.Find("Player");
         string level = SceneManager.GetActiveScene().name;
@@ -26,6 +28,9 @@ public class LevelManager : MonoBehaviour {
             levelNumber = int.Parse(level.Substring(5));
             playingLevel = levelNumber;
         }
+        musicSource.volume = VolumeSlider.currentVolume / 2.5f;
+        musicSource.loop = true;
+        musicSource.Play();
         retryCircle.enabled = false;
         
     }
@@ -34,6 +39,14 @@ public class LevelManager : MonoBehaviour {
         PressRetry();
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             LoadLevel(1);
+        }
+        if(musicSource.volume != VolumeSlider.currentVolume / 2) {
+            musicSource.volume = VolumeSlider.currentVolume / 2;
+        }
+        if (Time.timeScale != 1) {
+            musicSource.pitch = Mathf.Lerp(Time.timeScale, 1, 0.1f);
+        } else {
+            musicSource.pitch = 1;
         }
     }
 
@@ -102,6 +115,10 @@ public class LevelManager : MonoBehaviour {
     public static void StaticBackToMenu() {
         SceneManager.LoadScene("Menu");
         playingLevel = 0;
+    }
+
+    public void Exit() {
+        Application.Quit();
     }
 
 

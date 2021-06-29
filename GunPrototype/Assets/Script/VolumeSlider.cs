@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class VolumeSlider : MonoBehaviour
 {
     [SerializeField] Slider volumeSlider;
-    private static float currentVolume = 0.25f;
+    [HideInInspector] public static float currentVolume = 0.25f;
     private AudioSource shootSource;
 
     // Start is called before the first frame update

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
     private TimeManager tm;
-    private SpriteRenderer sr;
+    [SerializeField] private SpriteRenderer sr;
     [SerializeField] private ParticleSystem diePs;
     // Start is called before the first frame update
 
@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
         tm = GameObject.Find("Manager").GetComponent<TimeManager>();
-        sr = GetComponent<SpriteRenderer>();
         hp = maxHp;
         die = false;
     }
