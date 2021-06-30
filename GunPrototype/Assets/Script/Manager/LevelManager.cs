@@ -74,18 +74,20 @@ public class LevelManager : MonoBehaviour {
     }
 
     public static void StaticRetry() {
-        if (playingLevel>=0) {
+        if (playingLevel>0) {
             SceneManager.LoadScene("Level" + playingLevel);
-        }else if (playingLevel == -1){
+        } else if (playingLevel == -1) {
             SceneManager.LoadScene("Tutorial");
         }
-        
+
     }
 
     public void Retry() {
         if (playingLevel == 0) {
             SceneManager.LoadScene("Menu");
-        } else if (InLevel()) {
+        } else if (playingLevel == -1) {
+            SceneManager.LoadScene("Tutorial");
+        } else if (playingLevel > 0) {
             SceneManager.LoadScene("Level" + playingLevel);
         }
 

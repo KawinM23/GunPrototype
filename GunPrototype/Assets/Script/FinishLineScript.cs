@@ -14,7 +14,9 @@ public class FinishLineScript : MonoBehaviour
     private void Start() {
         tm = GameObject.Find("Manager").GetComponent<TimeManager>();
         Text timeRequired = GameObject.Find("TimeRequired").GetComponent<Text>();
-        timeRequired.text = "/ " + timeLimited.ToString();
+        if (SceneManager.GetActiveScene().name.Contains("Level")) {
+            timeRequired.text = "/ " + timeLimited.ToString();
+        }
     }
 
 
