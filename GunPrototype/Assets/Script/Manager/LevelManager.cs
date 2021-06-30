@@ -74,7 +74,12 @@ public class LevelManager : MonoBehaviour {
     }
 
     public static void StaticRetry() {
-        SceneManager.LoadScene("Level" + playingLevel);
+        if (playingLevel>=0) {
+            SceneManager.LoadScene("Level" + playingLevel);
+        }else if (playingLevel == -1){
+            SceneManager.LoadScene("Tutorial");
+        }
+        
     }
 
     public void Retry() {

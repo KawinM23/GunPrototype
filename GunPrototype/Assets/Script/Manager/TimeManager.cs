@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
@@ -34,7 +35,7 @@ public class TimeManager : MonoBehaviour
         pauseMenu.SetActive(false);
         menuMenu.SetActive(false);
 
-        if (!inLevel) {
+        if (!inLevel || SceneManager.GetActiveScene().name.Contains("Tutorial")) {
             timer.gameObject.SetActive(false);
         }
     }
