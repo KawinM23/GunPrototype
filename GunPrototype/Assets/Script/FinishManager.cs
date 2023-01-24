@@ -122,7 +122,6 @@ public class FinishManager : MonoBehaviour
                 }
                 break;
             case 3:
-
                 border3Animator.Play("Border3Animation");
                 yield return new WaitForSeconds(1f);
                 border3Animator.SetBool("Play", false);

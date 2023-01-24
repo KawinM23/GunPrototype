@@ -11991,6 +11991,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5540259998323143651, guid: f5fcb39481965f341a03c2b31a197bf4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540259998323143651, guid: f5fcb39481965f341a03c2b31a197bf4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540259998323143651, guid: f5fcb39481965f341a03c2b31a197bf4,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7320539041552486374, guid: f5fcb39481965f341a03c2b31a197bf4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7320539041552486374, guid: f5fcb39481965f341a03c2b31a197bf4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7743526081235655730, guid: f5fcb39481965f341a03c2b31a197bf4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12144,7 +12169,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 7}
+  m_SizeDelta: {x: 20, y: 12.07168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1835856539
 MonoBehaviour:
@@ -12178,7 +12203,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Credit
+  m_Text: 'Credit
+
+    LightningKS'
 --- !u!222 &1835856540
 CanvasRenderer:
   m_ObjectHideFlags: 0
