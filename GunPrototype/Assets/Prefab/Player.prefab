@@ -9733,6 +9733,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 4270869999420316526}
   diePs: {fileID: 4884588217064815941}
+  healthSource: {fileID: 9182925247961959144}
+  lossHealth: {fileID: 8300000, guid: 2d26d845b9adbc944a9fcb3d2118e9a3, type: 3}
 --- !u!212 &7032924513037284797
 SpriteRenderer:
   m_ObjectHideFlags: 0

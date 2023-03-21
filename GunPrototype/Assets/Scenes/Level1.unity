@@ -148,7 +148,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27657061}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 175687622}
@@ -221,7 +221,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!1 &28801300
 GameObject:
@@ -1786,7 +1786,7 @@ PrefabInstance:
     - target: {fileID: 7032924513037284798, guid: 36a11315ecb214f49991543b251ae98f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28
+      value: -23
       objectReference: {fileID: 0}
     - target: {fileID: 7032924513037284798, guid: 36a11315ecb214f49991543b251ae98f,
         type: 3}
@@ -3076,12 +3076,17 @@ PrefabInstance:
     - target: {fileID: 7743526081235655730, guid: f5fcb39481965f341a03c2b31a197bf4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28
+      value: -23
       objectReference: {fileID: 0}
     - target: {fileID: 7743526081235655730, guid: f5fcb39481965f341a03c2b31a197bf4,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -11.879999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7743526081235655730, guid: f5fcb39481965f341a03c2b31a197bf4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 7743526082511459340, guid: f5fcb39481965f341a03c2b31a197bf4,
         type: 3}
@@ -3096,6 +3101,11 @@ PrefabInstance:
     - target: {fileID: 7743526082511459341, guid: f5fcb39481965f341a03c2b31a197bf4,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7743526082511459341, guid: f5fcb39481965f341a03c2b31a197bf4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8951688099398264952, guid: f5fcb39481965f341a03c2b31a197bf4,

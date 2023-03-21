@@ -13,7 +13,7 @@ public class Respawner : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision != null && collision.gameObject.CompareTag("Player")) {
-            PlayerController.getHit(200);
+            PlayerController.Instance.getHit(200);
         }
     }
 }

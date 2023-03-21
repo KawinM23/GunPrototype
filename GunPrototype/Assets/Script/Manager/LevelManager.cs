@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour {
             levelNumber = int.Parse(level.Substring(5));
             playingLevel = levelNumber;
         }
-        musicSource.volume = VolumeSlider.currentVolume / 2.5f;
+        musicSource.volume = VolumeSlider.currentVolume / 7f;
         musicSource.loop = true;
         musicSource.Play();
         retryCircle.enabled = false;
@@ -40,8 +40,8 @@ public class LevelManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             LoadLevel(1);
         }
-        if(musicSource.volume != VolumeSlider.currentVolume / 2) {
-            musicSource.volume = VolumeSlider.currentVolume / 2;
+        if(musicSource.volume != VolumeSlider.currentVolume / 7f) {
+            musicSource.volume = VolumeSlider.currentVolume / 7f;
         }
         if (Time.timeScale != 1) {
             musicSource.pitch = Mathf.Lerp(Time.timeScale, 1, 0.1f);

@@ -45,7 +45,7 @@ public class EnemyBullet : MonoBehaviour {
             }
             if (collision.gameObject.CompareTag("Player")) {
                 if (!hc.isHacking) {
-                    PlayerController.getHit(bulletDamage);
+                    PlayerController.Instance.getHit(bulletDamage);
                     Destroy(gameObject);
                     return;
                 } else {

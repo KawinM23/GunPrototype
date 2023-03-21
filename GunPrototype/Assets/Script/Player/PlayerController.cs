@@ -8,13 +8,26 @@ public class PlayerController : MonoBehaviour {
     private TimeManager tm;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private ParticleSystem diePs;
-    // Start is called before the first frame update
+
+    [Header("Sounds")]
+    [SerializeField] AudioSource healthSource;
+    [SerializeField] AudioClip lossHealth;
 
     static int hp;
     static int maxHp = 100;
     private bool die;
 
+    public static PlayerController Instance { get; private set; }
 
+    private void Awake() {
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Destroy(gameObject);
+        }
+    }
+
+    // Start is called before the first frame update
     void Start()
     {
         tm = GameObject.Find("Manager").GetComponent<TimeManager>();
@@ -43,9 +56,16 @@ public class PlayerController : MonoBehaviour {
         LevelManager.StaticRetry();
     }
 
-    public static void getHit(int damage) {
+    public void getHit(int damage) {
         hp -= damage;
+        PlayLossHealthSound(damage);
     }
 
     public float healthPercentage() => hp / (float)maxHp;
+
+    void PlayLossHealthSound(int damage){
+        if(damage > 0){
+            healthSource.PlayOneShot(lossHealth,.8f);
+        }
+    }
 }
