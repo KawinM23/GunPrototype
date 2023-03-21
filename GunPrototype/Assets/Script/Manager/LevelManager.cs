@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour {
             musicSource.volume = VolumeSlider.currentVolume / 7f;
         }
         if (Time.timeScale != 1) {
-            musicSource.pitch = Mathf.Lerp(Time.timeScale, 1, 0.1f);
+            musicSource.pitch = Mathf.Lerp(0.6f, 1, Time.timeScale);
         } else {
             musicSource.pitch = 1;
         }
