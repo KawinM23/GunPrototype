@@ -9601,7 +9601,7 @@ GameObject:
   - component: {fileID: 7032924513037284799}
   - component: {fileID: 7032924513037284796}
   - component: {fileID: 1128196404006224982}
-  - component: {fileID: 3612458128224012353}
+  - component: {fileID: 3362084440096093776}
   - component: {fileID: 7032924513037284797}
   - component: {fileID: 7032924513037284794}
   - component: {fileID: 7032924513037284795}
@@ -9719,7 +9719,7 @@ MonoBehaviour:
   downSound: {fileID: 8300000, guid: a4be3951a3f0dd444bd39c3c16a58e68, type: 3}
   leftSound: {fileID: 8300000, guid: a43873a234f8417449162ca8733457fa, type: 3}
   rightSound: {fileID: 8300000, guid: ecf8c6ecebc2b5341ab63709de98aa6f, type: 3}
---- !u!114 &3612458128224012353
+--- !u!114 &3362084440096093776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -26,7 +26,6 @@ public class PlayerHealthbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         Healthbar.fillAmount = pc.healthPercentage();
     }
 }
