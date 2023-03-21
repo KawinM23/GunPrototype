@@ -21,8 +21,14 @@ public class HackController : MonoBehaviour {
     private float hackDuration;
     private float hackTimePass;
 
+    Vector2 mousePosition;
+    GameObject hackTarget;
+
     public float hackCooldown;
     private float cooldownTracker;
+
+    public Color UnselectedColor;
+    public Color SelectedColor;
 
     public float fadeOutDuration;
 
@@ -51,6 +57,7 @@ public class HackController : MonoBehaviour {
         hi.HideInterface();
         ht.HideTimer();
 
+        hackTarget = null;
         isHacking = false;
         hackPos = 0;
         hackTime = 0;
@@ -80,24 +87,32 @@ public class HackController : MonoBehaviour {
         } else if (cooldownTracker < 0) {
             cooldownTracker = 0;
         }
+        
         PressHack();
     }
 
     private void PressHack() {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && hackableList.Count != 0 && cooldownTracker == 0) {
-            Vector2 mousePosition = mc.ScreenToWorldPoint(Input.mousePosition);
-            GameObject nearestObject = null;
+        if(hackableList.Count != 0){
+            mousePosition = mc.ScreenToWorldPoint(Input.mousePosition);
             foreach (GameObject go in hackableList) {
-                if ((nearestObject == null || Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, nearestObject.transform.position)) && InScreen(go)) {
-                    nearestObject = go;
-                }
+                if(hackTarget==null && InScreen(go)){
+                    hackTarget = go;
+                    hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
+                } else if (hackTarget!=null && (Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, hackTarget.transform.position)) && InScreen(go)) {
+                    hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = UnselectedColor;
+                    hackTarget = go;
+                    hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
+                }   
             }
-            if (nearestObject != null) {
-                if (nearestObject.GetComponent<Enemy>() != null) {
-                    nearestObject.GetComponent<Enemy>().StartHack();
-                } else if (nearestObject.GetComponent<Door>() != null) {
-                    nearestObject.GetComponent<Door>().StartHack();
-                }
+        } else {
+            hackTarget = null;
+        }
+
+        if (hackTarget != null && cooldownTracker == 0 && Input.GetKeyDown(KeyCode.Mouse1)) {
+            if (hackTarget.GetComponent<Enemy>() != null) {
+                hackTarget.GetComponent<Enemy>().StartHack();
+            } else if (hackTarget.GetComponent<Door>() != null) {
+                hackTarget.GetComponent<Door>().StartHack();
             }
         }
     }

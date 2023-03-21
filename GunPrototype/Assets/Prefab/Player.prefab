@@ -9712,6 +9712,8 @@ MonoBehaviour:
     type: 3}
   isHacking: 0
   hackCooldown: 3
+  UnselectedColor: {r: 1, g: 0.7463421, b: 0.35294116, a: 1}
+  SelectedColor: {r: 0.3529412, g: 1, b: 0.9490196, a: 1}
   fadeOutDuration: 0.25
   shootSource: {fileID: 9182925247961959144}
   glassShattered: {fileID: 8300000, guid: 2d26d845b9adbc944a9fcb3d2118e9a3, type: 3}
