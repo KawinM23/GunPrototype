@@ -32,7 +32,6 @@ public class LevelManager : MonoBehaviour {
         musicSource.loop = true;
         musicSource.Play();
         retryCircle.enabled = false;
-        
     }
 
     private void Update() {
@@ -44,7 +43,7 @@ public class LevelManager : MonoBehaviour {
             musicSource.volume = VolumeSlider.currentVolume / 7f;
         }
         if (Time.timeScale != 1) {
-            musicSource.pitch = Mathf.Lerp(0.6f, 1, Time.timeScale);
+            musicSource.pitch = Mathf.Lerp(0.3f, 1, Time.timeScale);
         } else {
             musicSource.pitch = 1;
         }

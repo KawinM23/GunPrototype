@@ -5,23 +5,24 @@ using UnityEngine.UI;
 public class VolumeSlider : MonoBehaviour
 {
     [SerializeField] Slider volumeSlider;
-    [HideInInspector] public static float currentVolume = 0.5f;
+    [HideInInspector] public static float currentVolume;
     private AudioSource shootSource;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         shootSource = GameObject.Find("ShootSource").GetComponent<AudioSource>();
 
-        volumeSlider.value = currentVolume;
+        currentVolume = volumeSlider.value;
         shootSource.volume = currentVolume / 5f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(volumeSlider.value != currentVolume) {
+        if(currentVolume != volumeSlider.value) {
             currentVolume = volumeSlider.value;
+        }
+        if(shootSource.volume != currentVolume / 5f){
             shootSource.volume = currentVolume / 5f;
         }
         

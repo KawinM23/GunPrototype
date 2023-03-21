@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject menuMenu;
     [SerializeField] private Text timer;
+    [SerializeField] private AudioSource musicSource;
 
     private bool inLevel;
     public bool start;
@@ -89,12 +90,14 @@ public class TimeManager : MonoBehaviour
         isPause = true;
         tempTimeScale = Time.timeScale;
         Time.timeScale = 0;
+        musicSource.Pause();
         pauseMenu.SetActive(true);
     }
 
     public void Resume() {
         isPause = false;
         Time.timeScale = tempTimeScale;
+        musicSource.UnPause();
         pauseMenu.SetActive(false);
     }
 

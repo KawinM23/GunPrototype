@@ -40,10 +40,12 @@ public class PlayerMovement : MonoBehaviour {
         if (!TimeManager.isPause && !die) {
             mx = Input.GetAxisRaw("Horizontal");
 
-            if (mx > 0f) {
-                isFacingRight = true;
-            } else if (mx < 0f) {
-                isFacingRight = false;
+            if(!hc.isHacking){
+                if (mx > 0f) {
+                    isFacingRight = true;
+                } else if (mx < 0f) {
+                    isFacingRight = false;
+                }
             }
             sr.flipX = !isFacingRight;
 
