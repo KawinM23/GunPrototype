@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour {
     protected GameObject player;
     protected HackController hc;
     [SerializeField] private EnemyHealthbar enemyHealthbar;
+    [SerializeField] ParticleSystem dieParticle;
     [SerializeField] Transform[] pathPoints;
     private int pathPointer;
     public GameObject bulletPrefab;
@@ -59,6 +60,9 @@ public class Enemy : MonoBehaviour {
 
         if (hp <= 0) {
             hc.RemoveFromHackableList(this.gameObject);
+            var main = dieParticle.main;
+            main.startColor = GetComponent<SpriteRenderer>().color;
+            Instantiate(dieParticle, gameObject.transform.localPosition, Quaternion.identity);
             Destroy(gameObject);
         }
         enemyHealthbar.OnGetHit();
