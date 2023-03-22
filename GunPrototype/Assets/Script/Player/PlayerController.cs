@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 
     static int hp;
     static int maxHp = 100;
-    private bool die;
+    public bool die;
 
     public static PlayerController Instance { get; private set; }
 

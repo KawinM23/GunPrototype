@@ -36,12 +36,13 @@ public class HackController : MonoBehaviour {
     private Door targetDoor;
 
     [Header("Sounds")]
-    [SerializeField] AudioSource shootSource;
+    [SerializeField] AudioSource hackSource;
     [SerializeField] AudioClip glassShattered;
     [SerializeField] AudioClip upSound;
     [SerializeField] AudioClip downSound;
     [SerializeField] AudioClip leftSound;
     [SerializeField] AudioClip rightSound;
+    private float hackSoundScale = 0.85f;
 
 
     // Start is called before the first frame update
@@ -67,20 +68,23 @@ public class HackController : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        if (!TimeManager.isPause && isHacking) {
-            hackTimePass += Time.deltaTime;
-            if (hackPos < hackList.Length && Input.GetKeyDown(hackList[hackPos])) {
-                hi.Press(hackPos);
-                PlayPressSound(hackPos);
-                hackPos++;
-                if (hackPos == hackList.Length) {
-                    HackSuccess();
+        if (!TimeManager.isPause) {
+            hackSource.UnPause();
+            if(isHacking){
+                hackTimePass += Time.deltaTime;
+                if (hackPos < hackList.Length) {
+                    PressHackCheck();
+                    if (hackPos == hackList.Length) {
+                        HackSuccess();
+                    }
+                }
+                if (hackTimePass > hackDuration) {
+                    Debug.Log("EndTime");
+                    HackFailed();
                 }
             }
-            if (hackTimePass > hackDuration) {
-                Debug.Log("EndTime");
-                HackFailed();
-            }
+        }else{
+            hackSource.Pause();
         }
         if (cooldownTracker > 0) {
             cooldownTracker -= Time.deltaTime;
@@ -92,27 +96,29 @@ public class HackController : MonoBehaviour {
     }
 
     private void PressHack() {
-        if(hackableList.Count != 0){
-            mousePosition = mc.ScreenToWorldPoint(Input.mousePosition);
-            foreach (GameObject go in hackableList) {
-                if(hackTarget==null && InScreen(go)){
-                    hackTarget = go;
-                    hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
-                } else if (hackTarget!=null && go!=null && (Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, hackTarget.transform.position)) && InScreen(go)) {
-                    hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = UnselectedColor;
-                    hackTarget = go;
-                    hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
-                }   
+        if(!PlayerController.Instance.die){
+            if(hackableList.Count != 0){
+                mousePosition = mc.ScreenToWorldPoint(Input.mousePosition);
+                foreach (GameObject go in hackableList) {
+                    if(hackTarget==null && InScreen(go)){
+                        hackTarget = go;
+                        hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
+                    } else if (hackTarget!=null && go!=null && (Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, hackTarget.transform.position)) && InScreen(go)) {
+                        hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = UnselectedColor;
+                        hackTarget = go;
+                        hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
+                    }   
+                }
+            } else {
+                hackTarget = null;
             }
-        } else {
-            hackTarget = null;
-        }
 
-        if (hackTarget != null && cooldownTracker == 0 && Input.GetKeyDown(KeyCode.Mouse1)) {
-            if (hackTarget.GetComponent<Enemy>() != null) {
-                hackTarget.GetComponent<Enemy>().StartHack();
-            } else if (hackTarget.GetComponent<Door>() != null) {
-                hackTarget.GetComponent<Door>().StartHack();
+            if (hackTarget != null && cooldownTracker == 0 && Input.GetKeyDown(KeyCode.Mouse1)) {
+                if (hackTarget.GetComponent<Enemy>() != null) {
+                    hackTarget.GetComponent<Enemy>().StartHack();
+                } else if (hackTarget.GetComponent<Door>() != null) {
+                    hackTarget.GetComponent<Door>().StartHack();
+                }
             }
         }
     }
@@ -158,11 +164,23 @@ public class HackController : MonoBehaviour {
         }
     }
 
+    private void PressHackCheck(){
+        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)){
+            if(Input.GetKeyDown(hackList[hackPos])){
+                hi.Press(hackPos);
+                PlayPressSound(hackPos);
+                hackPos++;
+            }else{
+                hackTimePass += hackDuration/5f;
+            }
+        }
+    }
+
     public void HackSuccess() {
         if (isHacking) {
             if (targetEnemy != null) {
+                hackSource.PlayOneShot(glassShattered, hackSoundScale);
                 targetEnemy.BreakShield();
-                shootSource.PlayOneShot(glassShattered, 1f);
             } else if (targetDoor != null) {
                 targetDoor.OpenDoor();
             }
@@ -194,19 +212,18 @@ public class HackController : MonoBehaviour {
     }
 
     void PlayPressSound(int hackPos) {
-
         switch (GetKeyNumber(hackPos)) {
             case 1:
-                shootSource.PlayOneShot(upSound, 1f);
+                hackSource.PlayOneShot(upSound, hackSoundScale);
                 break;
             case 2:
-                shootSource.PlayOneShot(leftSound, 1f);
+                hackSource.PlayOneShot(leftSound, hackSoundScale);
                 break;
             case 3:
-                shootSource.PlayOneShot(downSound, 1f);
+                hackSource.PlayOneShot(downSound, hackSoundScale);
                 break;
             case 4:
-                shootSource.PlayOneShot(rightSound, 1f);
+                hackSource.PlayOneShot(rightSound, hackSoundScale);
                 break;
             default:
                 break;
@@ -228,10 +245,6 @@ public class HackController : MonoBehaviour {
             rl[i] = randomList[Random.Range(0, randomList.Length)];
         }
         return rl;
-    }
-
-    public bool PressOtherKeys(KeyCode kc) {
-        return false;
     }
 
     public int GetKeyNumber(int index) {

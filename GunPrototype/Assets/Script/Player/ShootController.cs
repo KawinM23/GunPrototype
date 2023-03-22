@@ -79,6 +79,7 @@ public class ShootController : MonoBehaviour {
 
     private void Update() {
         if (!TimeManager.isPause) {
+            shootSource.UnPause();
             if (shootable && !hc.isHacking) {
                 Shoot();
             }
@@ -88,6 +89,11 @@ public class ShootController : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.R) && AmmoPercentage() != 1) {
                 Reload();
             }
+            if(Time.timeScale != 1){
+               shootSource.pitch = Mathf.Lerp(0.3f, 1, Time.timeScale); 
+            }
+        }else{
+            shootSource.Pause();
         }
     }
 
