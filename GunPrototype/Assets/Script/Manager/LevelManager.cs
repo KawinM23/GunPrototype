@@ -36,8 +36,8 @@ public class LevelManager : MonoBehaviour {
 
     private void Update() {
         PressRetry();
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            LoadLevel(1);
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            LoadLevel(0);
         }
         if(musicSource.volume != VolumeSlider.currentVolume / 7f) {
             musicSource.volume = VolumeSlider.currentVolume / 7f;

@@ -8,6 +8,7 @@ public class FinishManager : MonoBehaviour
 {
     [SerializeField] private SaveSystem ss;
     [SerializeField] private Text backText;
+    [SerializeField] private Text timeUsedText;
 
     private bool backable;
 
@@ -92,6 +93,7 @@ public class FinishManager : MonoBehaviour
         border2Animator = border2.GetComponent<Animator>();
         border3Animator = border3.GetComponent<Animator>();
         yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(ShowTime());
         yield return StartCoroutine(PlayStar(1));
         yield return StartCoroutine(PlayStar(2));
         yield return StartCoroutine(PlayStar(3));
@@ -136,7 +138,10 @@ public class FinishManager : MonoBehaviour
                 break;
         }
         yield return null;
+    }
 
-
+    IEnumerator ShowTime() {
+        timeUsedText.text = timePass.ToString("N2")+" / "+timeLimited.ToString();
+        yield return new WaitForSeconds(0.5f);
     }
 }
