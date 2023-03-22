@@ -62,7 +62,9 @@ public class Enemy : MonoBehaviour {
             hc.RemoveFromHackableList(this.gameObject);
             var main = dieParticle.main;
             main.startColor = GetComponent<SpriteRenderer>().color;
-            Instantiate(dieParticle, gameObject.transform.localPosition, Quaternion.identity);
+            GameObject go = Instantiate(dieParticle.gameObject, gameObject.transform.position, Quaternion.identity);
+            PlayerController.Instance.PlayEnemyDieSound();
+            Destroy(go, 2f);
             Destroy(gameObject);
         }
         enemyHealthbar.OnGetHit();

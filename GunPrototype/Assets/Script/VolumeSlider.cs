@@ -16,6 +16,7 @@ public class VolumeSlider : MonoBehaviour
 
         currentVolume = volumeSlider.value;
         shootSource.volume = currentVolume / 5f;
+        hackSource.volume = currentVolume / 4f;
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class VolumeSlider : MonoBehaviour
         }
         if(shootSource.volume != currentVolume / 5f){
             shootSource.volume = currentVolume / 5f;
-            hackSource.volume = currentVolume / 5f;
+            hackSource.volume = currentVolume / 4f;
         }
     }
 }

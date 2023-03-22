@@ -44,7 +44,7 @@ public class HackController : MonoBehaviour {
     [SerializeField] AudioClip downSound;
     [SerializeField] AudioClip leftSound;
     [SerializeField] AudioClip rightSound;
-    private float hackSoundScale = 0.85f;
+    private float hackSoundScale = 0.7f;
 
 
     // Start is called before the first frame update

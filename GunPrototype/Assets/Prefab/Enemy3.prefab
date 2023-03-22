@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealthbar: {fileID: 5414917563058775568}
+  dieParticle: {fileID: 5055706955079590098, guid: 93a7835ec4796ea43ba973f70fd6777b,
+    type: 3}
   pathPoints: []
   bulletPrefab: {fileID: 551649187103953120, guid: caaf2c5e39d8c784e950b2d559a22545,
     type: 3}

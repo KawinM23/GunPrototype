@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     [Header("Sounds")]
     [SerializeField] AudioSource healthSource;
     [SerializeField] AudioClip lossHealth;
+    [SerializeField] AudioClip dieSound;
 
     static int hp;
     static int maxHp = 100;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour {
         sr.enabled = false;
         gameObject.GetComponent<PlayerMovement>().Die();
         diePs.Play();
+        healthSource.PlayOneShot(dieSound, .9f);
         yield return StartCoroutine(tm.DoSlowmotionDie()); ;
         LevelManager.StaticRetry();
     }
@@ -67,7 +69,11 @@ public class PlayerController : MonoBehaviour {
 
     void PlayLossHealthSound(int damage){
         if(damage > 0){
-            healthSource.PlayOneShot(lossHealth,.8f);
+            healthSource.PlayOneShot(lossHealth, .8f);
         }
+    }
+
+    public void PlayEnemyDieSound(){
+        healthSource.PlayOneShot(dieSound, 1f);
     }
 }
