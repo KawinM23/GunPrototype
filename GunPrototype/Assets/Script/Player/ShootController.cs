@@ -171,6 +171,7 @@ public class ShootController : MonoBehaviour {
         while (reloadTime > 0) {
             if (Input.GetAxisRaw("Mouse ScrollWheel") != 0) {
                 reloadTime = 0;
+                shootSource.Stop();
                 break;
             }
             reloadTime -= Time.deltaTime;

@@ -44,7 +44,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void SetFullHealth() {
-        hp = maxHp;
+        if(!die){
+            hp = maxHp;
+        }
     }
 
     IEnumerator Die() {

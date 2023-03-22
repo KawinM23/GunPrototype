@@ -73,12 +73,12 @@ public class LevelManager : MonoBehaviour {
     }
 
     public static void StaticRetry() {
-        if (playingLevel>0) {
-            SceneManager.LoadScene("Level" + playingLevel);
-        } else if (playingLevel == -1) {
-            SceneManager.LoadScene("Tutorial");
-        }
-
+        // if (playingLevel>0) {
+        //     SceneManager.LoadScene("Level" + playingLevel);
+        // } else if (playingLevel == -1) {
+        //     SceneManager.LoadScene("Tutorial");
+        // }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Retry() {

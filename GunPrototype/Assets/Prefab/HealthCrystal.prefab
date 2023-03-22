@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8604751216842993919}
   - component: {fileID: 8604751216842993906}
   - component: {fileID: 8604751216842993916}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HealthCrystal
   m_TagString: Item
   m_Icon: {fileID: 0}

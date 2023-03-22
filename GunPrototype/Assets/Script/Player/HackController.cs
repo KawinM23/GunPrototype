@@ -98,7 +98,7 @@ public class HackController : MonoBehaviour {
                 if(hackTarget==null && InScreen(go)){
                     hackTarget = go;
                     hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
-                } else if (hackTarget!=null && (Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, hackTarget.transform.position)) && InScreen(go)) {
+                } else if (hackTarget!=null && go!=null && (Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, hackTarget.transform.position)) && InScreen(go)) {
                     hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = UnselectedColor;
                     hackTarget = go;
                     hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
