@@ -15,8 +15,6 @@ public class PortalScript : MonoBehaviour
     public Color star2Color;
     public Color star3Color;
 
-
-
     private bool onPortal;
 
     public int level;
@@ -58,6 +56,10 @@ public class PortalScript : MonoBehaviour
                             star3Sprite.color = star3Color;
                         }
                     }
+                }else{
+                    star1Sprite.enabled = false;
+                    star2Sprite.enabled = false;
+                    star3Sprite.enabled = false;
                 }
             }
         }

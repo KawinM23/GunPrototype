@@ -1352,6 +1352,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 7375314246218456345, guid: 25d2878539bb818438c402ee68216e0b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25d2878539bb818438c402ee68216e0b, type: 3}
 --- !u!1001 &7743526081620321458

@@ -26,8 +26,6 @@ public class VolumeSlider : MonoBehaviour
         }
         if(shootSource.volume != currentVolume / 5f){
             shootSource.volume = currentVolume / 5f;
-        }
-        if(hackSource.volume != currentVolume / 5f){
             hackSource.volume = currentVolume / 5f;
         }
     }
