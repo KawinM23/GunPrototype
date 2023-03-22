@@ -23,6 +23,8 @@ public class HackController : MonoBehaviour {
 
     Vector2 mousePosition;
     GameObject hackTarget;
+    private int hackDis = 100;
+    public LayerMask groundLayer;
 
     public float hackCooldown;
     private float cooldownTracker;
@@ -103,17 +105,19 @@ public class HackController : MonoBehaviour {
                     if(hackTarget==null && InScreen(go)){
                         hackTarget = go;
                         hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
-                    } else if (hackTarget!=null && go!=null && (Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, hackTarget.transform.position)) && InScreen(go)) {
-                        hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = UnselectedColor;
+                    } else if (hackTarget!=null && go!=null && hackTarget!=go && (Vector2.Distance(mousePosition, go.transform.position) < Vector2.Distance(mousePosition, hackTarget.transform.position)) && InScreen(go)) {
+                        if(hackTarget.transform.Find("HackMarkPrefab(Clone)")!=null){
+                           hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = UnselectedColor; 
+                        }
                         hackTarget = go;
                         hackTarget.transform.Find("HackMarkPrefab(Clone)").GetComponent<SpriteRenderer>().color = SelectedColor;
-                    }   
+                    }
                 }
             } else {
                 hackTarget = null;
             }
 
-            if (hackTarget != null && cooldownTracker == 0 && Input.GetKeyDown(KeyCode.Mouse1)) {
+            if (hackTarget != null && cooldownTracker == 0 && Input.GetKeyDown(KeyCode.Mouse1) && SeeHackTarget()) {
                 if (hackTarget.GetComponent<Enemy>() != null) {
                     hackTarget.GetComponent<Enemy>().StartHack();
                 } else if (hackTarget.GetComponent<Door>() != null) {
@@ -126,6 +130,18 @@ public class HackController : MonoBehaviour {
     private bool InScreen(GameObject go) {
         Vector3 screenPoint = mc.WorldToViewportPoint(go.transform.position);
         return screenPoint.z > -10 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+    }
+
+    private bool SeeHackTarget() {
+        Vector2 endPoint = hackTarget.transform.position + (hackTarget.transform.position - gameObject.transform.position).normalized * hackDis;
+        RaycastHit2D hit = Physics2D.Linecast(gameObject.transform.position, endPoint, groundLayer);
+        Debug.DrawRay(gameObject.transform.position, (gameObject.transform.position - hackTarget.transform.position).normalized * hackDis, Color.blue);
+
+        if (hit.collider != null && hit.collider.gameObject == hackTarget) {
+            Debug.DrawRay(gameObject.transform.position, gameObject.transform.position - hackTarget.transform.position, Color.green);
+            return true;
+        }
+        return false;
     }
 
     public void StartEnemyHack(Enemy enemy, int size, float duration) {

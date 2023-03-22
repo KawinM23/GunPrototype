@@ -9839,6 +9839,9 @@ MonoBehaviour:
   markPrefab: {fileID: 6241274535554769631, guid: 662ad4665600d404f9d8266ed0a32f03,
     type: 3}
   isHacking: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1280
   hackCooldown: 3
   UnselectedColor: {r: 1, g: 0.7463421, b: 0.35294116, a: 1}
   SelectedColor: {r: 0.3529412, g: 1, b: 0.9490196, a: 1}
@@ -9865,6 +9868,7 @@ MonoBehaviour:
   diePs: {fileID: 4884588217064815941}
   healthSource: {fileID: 9182925247961959144}
   lossHealth: {fileID: 8300000, guid: 2d26d845b9adbc944a9fcb3d2118e9a3, type: 3}
+  die: 0
 --- !u!212 &7032924513037284797
 SpriteRenderer:
   m_ObjectHideFlags: 0
