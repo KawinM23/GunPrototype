@@ -1,1 +1,0 @@
-{"levelName":"Level1","completed":true,"stars":[true,false,true],"timeUsed":92.14104461669922}___{"levelName":"Level2","completed":false,"stars":[false,false,false],"timeUsed":0.0}
